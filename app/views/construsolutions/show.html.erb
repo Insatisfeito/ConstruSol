@@ -1,0 +1,114 @@
+<div class="pageheader">
+  <h2>Materiais - Soluções Construtivas</h2>
+  <p class="description">Consulta de lista de materiais e impactos ambientais</p>
+  <div class="breadcrumb-wrapper hidden-xs">
+    <span class="label">You are here:</span>
+    <ol class="breadcrumb">
+      <li class="active">Blank Page</li>
+    </ol>
+  </div>
+</div>
+<section id="main-content" class="animated fadeInUp">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title">Tabela de Consulta</h3>
+          <div class="actions pull-right">
+            <i class="fa fa-expand"></i>
+            <i class="fa fa-chevron-down"></i>
+            <i class="fa fa-times"></i>
+          </div>
+        </div>
+        <div class="panel-body">
+          <%= link_to 'Voltar', construsolutions_path, :class=>"btn btn-info" %>
+          <table class="table table-bordered">
+            <tr>
+              <td> Solução Construtiva </td>
+              <td colspan="8"> <%= @construsolution.construtype == 0 ? "Parede não ventilada" : "Parede ventilada" %> : <%= @construsolution.name %> </td>
+              <td> Ref: <%= @construsolution.ref %> </td>
+            </tr>
+            <tr>
+               <td rowspan="<%= @construsolution.materials.count + 6 %>"> Image </td>
+              <td class="header"  rowspan="2"> Fase de ciclo de vida </td>
+              <td class="header" colspan="6"> Categorias de impacto Ambiental LCA</td>
+              <td class="header" colspan="2"> Energia incorporada </td>
+            </tr>
+            <tr class="header"> 
+              <td>ADP</td>
+              <td>GWP</td>
+              <td>ODP</td>
+              <td>AP</td>
+              <td>POPC</td>
+              <td>EPC</td>
+              <td>ENR</td>
+              <td>ER</td>
+            </tr>
+            <tr> 
+              <td>Cradle-to-gate</td>
+              <td class="value-field"><%= "%.2E" % @construsolution.adp %> </td>
+              <td class="value-field"><%= "%.2E" % @construsolution.gwp %></td>
+              <td class="value-field"><%= "%.2E" % @construsolution.odp %></td>
+              <td class="value-field"><%= "%.2E" % @construsolution.ap %></td>
+              <td class="value-field"><%= "%.2E" % @construsolution.popc %></td>
+              <td class="value-field"><%= "%.2E" % @construsolution.ep %></td>
+              <td class="value-field"><%= "%.2E" % @construsolution.enr %></td>
+              <td class="value-field"><%= "%.2E" % @construsolution.er %></td>
+            </tr>
+            <tr>
+              <td class="header"  rowspan="2"> Materiais Considerados (Exterior - Interior) </td>
+              <td class="header" colspan="6"> Propriedades Térmicas</td>
+              <td class="header"> Quantidade por m<sub>2</sub> </td>
+              <td class="header"> Custos por m<sub>2</sub> </td>
+            </tr>
+            <tr class="header"> 
+              <td>e <div class="measure">(m)</div></td>
+              <td>λ <div class="measure">(W/m.ºC)</div></td>
+              <td>R si <div class="measure">(m<sub>2</sub>.ºC/W)</div></td>
+              <td>R se <div class="measure">(m<sub>2</sub>.ºC/W)</div></td>
+              <td>R <div class="measure">(m<sub>2</sub>.ºC/W)</div></td>
+              <td>U <div class="measure">(W/m<sub>2</sub>.ºC)</div></td>
+              <td>kg / m<sub>2</sub></td>
+              <td>E / m<sub>2</sub></td>
+            </tr>
+            <tr class="hide-row">
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td rowspan="<%= @construsolution.materials.count + 1%>"> 0.13 </td>
+                  <td rowspan="<%= @construsolution.materials.count + 1%>"><% if @construsolution.construtype == 0 %>0.04 <% else %>0.13<% end %></td>
+                  <td></td>
+                  <td rowspan="<%= @construsolution.materials.count + 1%>"> <%= @calcs[:u] %> </td>
+                  <td></td>
+                  <td rowspan="<%= @construsolution.materials.count + 1%>"><%= '%.2f' % @calcs[:cost].round(2) %> </td>
+                  
+                </tr>
+
+              <% @construsolution.materials.each do |m| %>
+                <tr>
+                  <td> <%= m.name %> </td>
+                  <td class="value-field"> <%='%.3f' % m.e.round(4) %> </td>
+                  <td class="value-field"> <%='%.4f' % m.lambda.round(4) %> </td>
+                  <td class="value-field"><%= '%.4f' % (m.e/m.lambda).round(4) %></td>
+                  <td class="value-field"><%= '%.2f' % m.weight.round(2) %> </td>
+                  
+
+                </tr>
+              <%end%>
+
+            <tr>
+              <td colspan="10">Método(s) de LCA: CML 2 baseline 2000 versão 3.02 (para avaliar o Impacto ambiental) e Cumulative Energy Demand versão 1.09 (Para avaliar a energia)</td>
+            </tr>
+            <tr>
+              <td colspan="10">Bibliotecas do LCI: Ecoinvent system process</td>
+            </tr>
+            
+          </table>
+
+
+
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
