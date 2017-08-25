@@ -4,6 +4,55 @@ class ConstrusolutionsController < InheritedResources::Base
     @construsolution = Construsolution.new
   end
 
+  
+  def compare
+    @construsolutions = Construsolution.all
+  end
+
+  
+  def compareResults
+    @results = Hash.new
+    compare_params_results.each do |constru_id, constru_params|
+      constr = Construsolution.find(constru_id)
+      @results[constru_id] = Hash.new
+      @results[constru_id][:constr] = constr
+      @results[constru_id][:adp] = 0
+      @results[constru_id][:gwp] = 0
+      @results[constru_id][:odp] = 0
+      @results[constru_id][:ap] = 0
+      @results[constru_id][:popc] = 0
+      @results[constru_id][:ep] = 0
+      @results[constru_id][:er] = 0
+      @results[constru_id][:enr] = 0
+      @results[constru_id][:cost] = 0
+      @results[constru_id][:materials] = Hash.new
+      constru_params.each do |mat_id, mat_params|
+        mat = Material.find(mat_id)
+        trans = Transport.find(mat_params["transport"]) 
+        @results[constru_id][:materials][mat_id] = { "mat" => mat, "transport" => trans, "distance" => mat_params["distance"].to_f}
+        @results[constru_id][:adp] += mat.weight * mat_params["distance"].to_f * trans.adp
+        @results[constru_id][:gwp] += mat.weight * mat_params["distance"].to_f * trans.gwp
+        @results[constru_id][:odp] += mat.weight * mat_params["distance"].to_f * trans.odp
+        @results[constru_id][:ap] += mat.weight * mat_params["distance"].to_f * trans.ap
+        @results[constru_id][:popc] += mat.weight * mat_params["distance"].to_f * trans.popc
+        @results[constru_id][:ep] += mat.weight * mat_params["distance"].to_f * trans.ep
+        @results[constru_id][:er] += mat.weight * mat_params["distance"].to_f * trans.er
+        @results[constru_id][:enr] += mat.weight * mat_params["distance"].to_f * trans.enr
+        @results[constru_id][:cost] += mat.cost
+      end
+    end
+    Rails.logger.debug "#{@results.inspect}"
+  end
+
+  def compareStep2
+    @construsolutions = []
+    compare_params[:solutions_compare_ids].each do |sol|
+      if sol != ""
+        @construsolutions.push(Construsolution.find(sol))
+      end
+    end
+  end
+
   def create
     @construsolution = Construsolution.new(construsolution_params)
     @construsolution.adp = 0
@@ -101,7 +150,6 @@ class ConstrusolutionsController < InheritedResources::Base
         @calcs[:cost] += material.cost
         if m.construtype == 1
           @calcs[:uNoDiv] += material.e/material.lambda
-          puts "-------------------------------------------"
         end
       end
       @calcs[:u] = (1 / @calcs[:uNoDiv]).round(4)
@@ -117,6 +165,14 @@ class ConstrusolutionsController < InheritedResources::Base
 
     def construsolution_params
       params.require(:construsolution).permit(:name, :ref, :desc, :from,:adp, :gwp, :odp, :ap, :popc, :ep, :enr, :er, :construtype, material_nv_ids:[], material_int_ids:[], material_ext_ids:[])
+    end
+
+    def compare_params
+      params.require(:solutions_compare).permit(solutions_compare_ids:[])
+    end
+
+    def compare_params_results
+      params.require(:solutions_compare_results).permit!
     end
 end
 

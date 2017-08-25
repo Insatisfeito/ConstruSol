@@ -1,0 +1,116 @@
+
+<div class="pageheader">
+  <h2>Resultados de Comparação de Soluções Construtivas</h2>
+  <p class="description">Resultados dos Impactos Ambientais entre Soluções Construtivas</p>
+  <div class="breadcrumb-wrapper hidden-xs">
+    <span class="label">Estás aqui:</span>
+    <ol class="breadcrumb">
+      <li class="active">Comparação de Soluções Construtivas</li>
+      <li class="active">Resultados</li>
+    </ol>
+  </div>
+</div>
+<section id="main-content" class="animated fadeInUp" >
+  <div class="row">
+    <div class="col-md-12">
+      <div class="panel panel-default">
+        <div class="panel-body" style="min-height: 600px"> 
+          <% @results.each do |constr, constr_params| %>
+             <table class="table table-bordered">
+            <tr>
+              <td> Solução Construtiva </td>
+              <td colspan="8"> <%= constr_params[:constr].construtype == 0 ? "Parede não ventilada" : "Parede ventilada" %> : <%= constr_params[:constr].name %> </td>
+              <td> Ref: <%= constr_params[:constr].ref %> </td>
+            </tr>
+            <tr>
+               <td rowspan="<%= constr_params[:materials].count + 7 %>"> Image  </td>
+              <td class="header"  rowspan="2"> Fase de ciclo de vida </td>
+              <td class="header" colspan="6"> Categorias de impacto Ambiental LCA</td>
+              <td class="header" colspan="2"> Energia incorporada </td>
+            </tr>
+            <tr class="header"> 
+              <td>ADP <div class="measure">(kb Sb eq)</div></td>
+              <td>GWP <div class="measure">(Kg CO<span style="font-size: 8px">2</span> eq)</div></td>
+              <td>ODP <div class="measure">(Kg CGC-11 eq)</div></td>
+              <td>AP <div class="measure">(Kg SO<span style="font-size: 8px">2</span> eq)</div></td>
+              <td>POPC <div class="measure">(Kg C<span style="font-size: 8px">2</span>H<span style="font-size: 8px">4</span> eq)</div></td>
+              <td>EP <div class="measure">(Kg PO4 eq)</div></td>
+              <td>ENR <div class="measure">(MJ eq)</div></td>
+              <td>ER <div class="measure">(MJ eq)</div></td>
+            </tr>
+            <tr> 
+              <td>Cradle-to-gate</td>
+              <td class="value-field"><%= "%.2E" % constr_params[:constr].adp %> </td>
+              <td class="value-field"><%= "%.2E" % constr_params[:constr].gwp %></td>
+              <td class="value-field"><%= "%.2E" % constr_params[:constr].odp %></td>
+              <td class="value-field"><%= "%.2E" % constr_params[:constr].ap %></td>
+              <td class="value-field"><%= "%.2E" % constr_params[:constr].popc %></td>
+              <td class="value-field"><%= "%.2E" % constr_params[:constr].ep %></td>
+              <td class="value-field"><%= "%.2E" % constr_params[:constr].enr %></td>
+              <td class="value-field"><%= "%.2E" % constr_params[:constr].er %></td>
+            </tr>
+            <tr> 
+              <td>Well-to-wheel</td>
+              <td class="value-field"><%= "%.2E" % constr_params[:adp] %> </td>
+              <td class="value-field"><%= "%.2E" % constr_params[:gwp] %></td>
+              <td class="value-field"><%= "%.2E" % constr_params[:odp] %></td>
+              <td class="value-field"><%= "%.2E" % constr_params[:ap] %></td>
+              <td class="value-field"><%= "%.2E" % constr_params[:popc] %></td>
+              <td class="value-field"><%= "%.2E" % constr_params[:ep] %></td>
+              <td class="value-field"><%= "%.2E" % constr_params[:enr] %></td>
+              <td class="value-field"><%= "%.2E" % constr_params[:er] %></td>
+            </tr>
+            <tr style="font-weight: 600;background:#cee3e5"> 
+              <td>Total</td>
+              <td class="value-field"><%= "%.2E" % (constr_params[:adp] + constr_params[:constr].adp) %> </td>
+              <td class="value-field"><%= "%.2E" % (constr_params[:gwp] + constr_params[:constr].gwp) %></td>
+              <td class="value-field"><%= "%.2E" % (constr_params[:odp] + constr_params[:constr].odp) %></td>
+              <td class="value-field"><%= "%.2E" % (constr_params[:ap] + constr_params[:constr].ap) %></td>
+              <td class="value-field"><%= "%.2E" % (constr_params[:popc] + constr_params[:constr].popc) %></td>
+              <td class="value-field"><%= "%.2E" % (constr_params[:ep] + constr_params[:constr].ep) %></td>
+              <td class="value-field"><%= "%.2E" % (constr_params[:enr] + constr_params[:constr].enr) %></td>
+              <td class="value-field"><%= "%.2E" % (constr_params[:er] + constr_params[:constr].er) %></td>
+            </tr>
+            <tr>
+              <td class="header"  rowspan="2"> Materiais Considerados (Exterior - Interior) </td>
+              <td class="header" colspan="2"> Quantidade por m<sub>2</sub> </td>
+              <td class="header" colspan="2"> Custo Material</td>
+              <td class="header" colspan="2"> Tipo de transporte </td>
+              <td class="header" colspan="2"> Distância </td>
+              
+            </tr>
+            <tr class="header"> 
+              <td colspan="2">kg / m<sub>2</sub></td>
+              <td class="header" colspan="2">E/m2 </td>
+              <td class="header" colspan="2">  </td>
+              <td class="header" colspan="2"> Km </td> 
+            </tr>
+ <% constr_params[:materials].each do |mat, mat_params| %>
+           
+
+             
+                <tr>
+                  <td> <%= mat_params["mat"].name%> </td>
+                  <td colspan="2" class="value-field"> <%= "%.2E" % mat_params["mat"].weight%> </td>
+                  <td colspan="2" class="value-field"> <%= "%.2E" % constr_params[:cost] %> </td>
+                  <td colspan="2" class="value-field"><%= mat_params["transport"].name%></td>
+                  <td colspan="2" class="value-field"><%= "%.2E" % mat_params["distance"]%></td>
+                </tr>
+             
+              <%end%>
+          
+              <td colspan="10">Método(s) de LCA: CML 2 baseline 2000 versão 3.02 (para avaliar o Impacto ambiental) e Cumulative Energy Demand versão 1.09 (Para avaliar a energia)</td>
+            </tr>
+            <tr>
+              <td colspan="10">Bibliotecas do LCI: Ecoinvent system process</td>
+            </tr>
+            
+          </table>
+          <%end%>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+

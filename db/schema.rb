@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170624183634) do
+ActiveRecord::Schema.define(version: 20170825050616) do
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string "namespace"
@@ -87,6 +87,21 @@ ActiveRecord::Schema.define(version: 20170624183634) do
     t.float "brick_width"
     t.float "brick_depth"
     t.float "brick_count_meter_square"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "transports", force: :cascade do |t|
+    t.string "name"
+    t.string "simapro_name"
+    t.float "adp"
+    t.float "gwp"
+    t.float "odp"
+    t.float "ap"
+    t.float "popc"
+    t.float "ep"
+    t.float "enr"
+    t.float "er"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
