@@ -164,7 +164,7 @@ class ConstrusolutionsController < InheritedResources::Base
   end
 
     def construsolution_params
-      params.require(:construsolution).permit(:name, :ref, :desc, :from,:adp, :gwp, :odp, :ap, :popc, :ep, :enr, :er, :construtype, material_nv_ids:[], material_int_ids:[], material_ext_ids:[])
+      params.require(:construsolution).permit(:name, :ref, :desc, :from,:adp, :gwp, :odp, :ap, :popc, :ep, :enr, :er, :construtype, :cimage,material_nv_ids:[], material_int_ids:[], material_ext_ids:[])
     end
 
     def compare_params

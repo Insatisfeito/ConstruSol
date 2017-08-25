@@ -29,7 +29,7 @@
               <td> Ref: <%= @construsolution.ref %> </td>
             </tr>
             <tr>
-               <td rowspan="<%= @construsolution.materials.count + 6 %>"> Image </td>
+               <td rowspan="<%= @construsolution.materials.count + 6 %>"> <%= image_tag @construsolution.cimage.url(:medium) %> </td>
               <td class="header"  rowspan="2"> Fase de ciclo de vida </td>
               <td class="header" colspan="6"> Categorias de impacto Ambiental LCA</td>
               <td class="header" colspan="2"> Energia incorporada </td>
