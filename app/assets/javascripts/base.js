@@ -9,3 +9,4 @@
 //= require pace/pace.min
 //= require html5shiv/html5shiv.min
 //= require respond/respond.min
+//= require app.js

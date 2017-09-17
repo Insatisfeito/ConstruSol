@@ -1,9 +1,9 @@
 .panel {
     border: none;
-    @include roundBorders(0); 
+    @include roundBorders(0);
 }
 
- 
+
 .panel>.panel-heading {
     font-weight: 400;
     text-transform: uppercase;
@@ -227,6 +227,7 @@
         font-size:2em;
         display: block;
         font-weight: 300;
+        line-height: 40px;
     }
     i {
         position:absolute;
