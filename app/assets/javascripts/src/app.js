@@ -15,8 +15,6 @@ var app = function() {
 
 
     var buildDataTables = function() {
-      
-      window.onload = function() {
         $("#panel1link").click(function() {
           $("#construsolution_type").val(0);
         });
@@ -28,7 +26,6 @@ var app = function() {
         var dataTable = $('#example');
         if(dataTable.length==0) {}
         else{$('#example').dataTable();}  
-      }
     }
 
     var calculateResults = function() {
