@@ -6,6 +6,7 @@ ActiveAdmin.register Construsolution do
 #
 # or
 #
+permit_params :name, :ref, :desc, :from,:adp, :gwp, :odp, :ap, :popc, :ep, :enr, :er, :construtype
 # permit_params do
 #   permitted = [:permitted, :attributes]
 #   permitted << :other if params[:action] == 'create' && current_user.admin?

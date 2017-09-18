@@ -12,6 +12,7 @@ class ConstrusolutionsController < InheritedResources::Base
   
   def compareResults
     @results = Hash.new
+    @calcs = Hash.new
     compare_params_results.each do |constru_id, constru_params|
       constr = Construsolution.find(constru_id)
       @results[constru_id] = Hash.new
@@ -26,6 +27,32 @@ class ConstrusolutionsController < InheritedResources::Base
       @results[constru_id][:enr] = 0
       @results[constru_id][:cost] = 0
       @results[constru_id][:materials] = Hash.new
+      if constr.construtype == 0
+        @calcs[constru_id] = Hash.new
+        @calcs[constru_id][:rsi] = 0.13
+        @calcs[constru_id][:rse] = 0.04
+        @calcs[constru_id][:uNoDiv] = @calcs[constru_id][:rse] + @calcs[constru_id][:rsi]
+        @calcs[constru_id][:cost] = 0
+        constr.materials.each do |m|
+          @calcs[constru_id][:uNoDiv] += m.e/m.lambda
+          @calcs[constru_id][:cost] += m.cost
+        end
+        @calcs[constru_id][:u] = (1 / @calcs[constru_id][:uNoDiv]).round(4)
+      else
+        @calcs[constru_id] = Hash.new
+        @calcs[constru_id][:rsi] = 0.13
+        @calcs[constru_id][:rse] = 0.13
+        @calcs[constru_id][:uNoDiv] = @calcs[constru_id][:rse] + @calcs[constru_id][:rsi]
+        @calcs[constru_id][:cost] = 0
+        constr.join_tables.each do |m|
+          material = Material.find(m.material_id)
+          @calcs[constru_id][:cost] += material.cost
+          if m.construtype == 1
+            @calcs[constru_id][:uNoDiv] += material.e/material.lambda
+          end
+        end
+        @calcs[constru_id][:u] = (1 / @calcs[constru_id][:uNoDiv]).round(4)
+      end
       constru_params.each do |mat_id, mat_params|
         mat = Material.find(mat_id)
         trans = Transport.find(mat_params["transport"]) 

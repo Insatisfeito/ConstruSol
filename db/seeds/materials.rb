@@ -16,8 +16,8 @@ materials = [{
         cost: 11.66
     },
     {
-        name: "Argamassa de assentamento",
-        e: 0,
+        name: "Argamassa de assentamento (Tijolo furado 11cm)",
+        e: 0.01,
         lambda: 1.3,
         adp: 0.000000203,
         gwp: 0.309,
@@ -46,8 +46,8 @@ materials = [{
         cost: 13.76
     },
     {
-        name: "Argamassa de assentamento",
-        e: 0,
+        name: "Argamassa de assentamento (Tijolo furado 15cm)",
+        e: 0.01,
         lambda: 1.3,
         adp: 0.000000203,
         gwp: 0.309,
@@ -76,8 +76,8 @@ materials = [{
         cost: 17.48
     },
     {
-        name: "Argamassa de assentamento",
-        e: 0,
+        name: "Argamassa de assentamento (Tijolo furado 22cm)",
+        e: 0.01,
         lambda: 1.3,
         adp: 0.000000203,
         gwp: 0.309,
@@ -106,8 +106,8 @@ materials = [{
         cost: 35.19
     },
     {
-        name: "Argamassa de assentamento",
-        e: 0,
+        name: "Argamassa de assentamento (Tijolo maciço 7cm)",
+        e: 0.01,
         lambda: 1.3,
         adp: 0.000000203,
         gwp: 0.309,
@@ -136,8 +136,8 @@ materials = [{
         cost: 51.89
     },
     {
-        name: "Argamassa de assentamento",
-        e: 0,
+        name: "Argamassa de assentamento (Tijolo maciço 11cm)",
+        e: 0.01,
         lambda: 1.3,
         adp: 0.000000203,
         gwp: 0.309,
@@ -166,8 +166,8 @@ materials = [{
         cost: 101.23
     },
     {
-        name: "Argamassa de assentamento",
-        e: 0,
+        name: "Argamassa de assentamento (Tijolo maciço 22cm)",
+        e: 0.01,
         lambda: 1.3,
         adp: 0.000000203,
         gwp: 0.309,
@@ -301,8 +301,8 @@ materials = [{
         cost: 30.52
     },
     {
-        name: "Argamassa de assentamento",
-        e: 0,
+        name: "Argamassa de assentamento (Blocos de betão celular autoclavado 17.5cm)",
+        e: 0.01,
         lambda: 1.3,
         adp: 0.000000203,
         gwp: 0.309,
@@ -331,8 +331,8 @@ materials = [{
         cost: 14.41
     },
     {
-        name: "Argamassa de assentamento",
-        e: 0,
+        name: "Argamassa de assentamento (Blocos de betão leve com agregados de argila expandida 20cm)",
+        e: 0.01,
         lambda: 1.3,
         adp: 0.000000203,
         gwp: 0.309,
@@ -361,8 +361,8 @@ materials = [{
         cost: 18.25
     },
     {
-        name: "Argamassa de assentamento",
-        e: 0,
+        name: "Argamassa de assentamento (Blocos de betão furados 20cm)",
+        e: 0.01,
         lambda: 1.3,
         adp: 0.000000203,
         gwp: 0.309,
