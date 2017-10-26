@@ -29,7 +29,7 @@
               <td> Ref: <%= @construsolution.ref %> </td>
             </tr>
             <tr>
-               <td rowspan="<%= @construsolution.materials.count + 6 %>"> <%= image_tag @construsolution.cimage.url(:medium) %> </td>
+               <td rowspan="<%= @construsolution.material_compositions.count + 6 %>"> <%= image_tag @construsolution.cimage.url(:medium) %> </td>
               <td class="header"  rowspan="2"> Fase de ciclo de vida </td>
               <td class="header" colspan="6"> Categorias de impacto Ambiental LCA</td>
               <td class="header" colspan="2"> Energia incorporada </td>
@@ -39,21 +39,21 @@
               <td>GWP <div class="measure">(Kg CO<span style="font-size: 8px">2</span> eq)</div></td>
               <td>ODP <div class="measure">(Kg CGC-11 eq)</div></td>
               <td>AP <div class="measure">(Kg SO<span style="font-size: 8px">2</span> eq)</div></td>
-              <td>POPC <div class="measure">(Kg C<span style="font-size: 8px">2</span>H<span style="font-size: 8px">4</span> eq)</div></td>
+              <td>POcp <div class="measure">(Kg C<span style="font-size: 8px">2</span>H<span style="font-size: 8px">4</span> eq)</div></td>
               <td>EP <div class="measure">(Kg PO4 eq)</div></td>
               <td>ENR <div class="measure">(MJ eq)</div></td>
               <td>ER <div class="measure">(MJ eq)</div></td>
             </tr>
             <tr> 
               <td>Cradle-to-gate</td>
-              <td class="value-field"><%= "%.2E" % @construsolution.adp %> </td>
-              <td class="value-field"><%= "%.2E" % @construsolution.gwp %></td>
-              <td class="value-field"><%= "%.2E" % @construsolution.odp %></td>
-              <td class="value-field"><%= "%.2E" % @construsolution.ap %></td>
-              <td class="value-field"><%= "%.2E" % @construsolution.popc %></td>
-              <td class="value-field"><%= "%.2E" % @construsolution.ep %></td>
-              <td class="value-field"><%= "%.2E" % @construsolution.enr %></td>
-              <td class="value-field"><%= "%.2E" % @construsolution.er %></td>
+              <td class="value-field"><%= "%.2E" % @calcs[:adp] %> </td>
+              <td class="value-field"><%= "%.2E" % @calcs[:gwp] %></td>
+              <td class="value-field"><%= "%.2E" % @calcs[:odp] %></td>
+              <td class="value-field"><%= "%.2E" % @calcs[:ap] %></td>
+              <td class="value-field"><%= "%.2E" % @calcs[:pocp] %></td>
+              <td class="value-field"><%= "%.2E" % @calcs[:ep] %></td>
+              <td class="value-field"><%= "%.2E" % @calcs[:enr] %></td>
+              <td class="value-field"><%= "%.2E" % @calcs[:er] %></td>
             </tr>
             <tr>
               <td class="header"  rowspan="2"> Materiais Considerados (Exterior - Interior) </td>
@@ -75,22 +75,22 @@
                   <td></td>
                   <td></td>
                   <td></td>
-                  <td rowspan="<%= @construsolution.materials.count + 1%>"> 0.13 </td>
-                  <td rowspan="<%= @construsolution.materials.count + 1%>"><% if @construsolution.construtype == 0 %>0.04 <% else %>0.13<% end %></td>
+                  <td rowspan="<%= @construsolution.material_compositions.count + 1%>"> 0.13 </td>
+                  <td rowspan="<%= @construsolution.material_compositions.count + 1%>"><% if @construsolution.construtype == 0 %>0.04 <% else %>0.13<% end %></td>
                   <td></td>
-                  <td rowspan="<%= @construsolution.materials.count + 1%>"> <%= @calcs[:u] %> </td>
+                  <td rowspan="<%= @construsolution.material_compositions.count + 1%>"> <%= @calcs[:u] %> </td>
                   <td></td>
-                  <td rowspan="<%= @construsolution.materials.count + 1%>"><%= '%.2f' % @calcs[:cost].round(2) %> </td>
+                  <td rowspan="<%= @construsolution.material_compositions.count + 1%>"><%= '%.2f' % @calcs[:cost_c].round(2) %> </td>
                   
                 </tr>
 
-              <% @construsolution.materials.each do |m| %>
+              <% @construsolution.material_compositions.each do |m| %>
                 <tr>
-                  <td> <%= m.name %> </td>
-                  <td class="value-field"> <%='%.3f' % m.e.round(4) %> </td>
-                  <td class="value-field"> <%='%.4f' % m.lambda.round(4) %> </td>
-                  <td class="value-field"><%= '%.4f' % (m.e/m.lambda).round(4) %></td>
-                  <td class="value-field"><%= '%.2f' % m.weight.round(2) %> </td>
+                  <td> <%= m.description %> </td>
+                  <td class="value-field"> <%='%.3f' % 0 %> </td>
+                  <td class="value-field"> <%='%.4f' % m[:lambda].round(4) %> </td>
+                  <td class="value-field"><%= '%.4f' % (0/m[:lambda]).round(4) %></td>
+                  <td class="value-field"><%= '%.2f' % 0.round(2) %> </td>
                   
 
                 </tr>

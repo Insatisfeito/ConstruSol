@@ -1,0 +1,37 @@
+<%= form_with(model: material_composition, local: true) do |form| %>
+  <% if material_composition.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(material_composition.errors.count, "error") %> prohibited this material_composition from being saved:</h2>
+
+      <ul>
+      <% material_composition.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :description %>
+    <%= form.text_field :description, id: :material_composition_description %>
+  </div>
+
+  <div class="field">
+    <%= form.label :mtype %>
+    <%= form.number_field :mtype, id: :material_composition_mtype %>
+  </div>
+
+  <div class="field">
+    <%= form.label :construction_cost %>
+    <%= form.text_field :construction_cost, id: :material_composition_construction_cost %>
+  </div>
+
+  <div class="field">
+    <%= form.label :maintenance_cost %>
+    <%= form.text_field :maintenance_cost, id: :material_composition_maintenance_cost %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

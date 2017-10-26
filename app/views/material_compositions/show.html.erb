@@ -1,0 +1,92 @@
+<div class="pageheader">
+  <h2>Material Derivado - <%= @material_composition.description %></h2>
+  <p class="description">Consulta materiais derivados</p>
+  <div class="breadcrumb-wrapper hidden-xs">
+    <span class="label">You are here:</span>
+    <ol class="breadcrumb">
+      <li class="active">Blank Page</li>
+    </ol>
+  </div>
+</div>
+<section id="main-content" class="animated fadeInUp">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title">Tabela de Consulta</h3>
+          <div class="actions pull-right">
+            <i class="fa fa-expand"></i>
+            <i class="fa fa-chevron-down"></i>
+            <i class="fa fa-times"></i>
+          </div>
+        </div>
+        <div class="panel-body">
+          <%= link_to 'Voltar', material_compositions_path, :class=>"btn btn-info" %>
+          <table class="table table-bordered">
+            <tr>
+              <td colspan="5"> <%= @material_composition.type_name %> - <b><%= @material_composition.description %></b> </td>
+              <td colspan="4"> |
+                <% @material_composition.material_joins.each do |mh| %>
+                  <%= mh.base_material.description%> | 
+                <% end %>
+              </td>
+            </tr>
+            <tr>
+              <td class="header"  rowspan="2"> Fase de ciclo de vida </td>
+              <td class="header" colspan="6"> Categorias de impacto Ambiental LCA</td>
+              <td class="header" colspan="2"> Energia incorporada </td>
+            </tr>
+            <tr class="header"> 
+              <td>ADP <div class="measure">(kb Sb eq)</div></td>
+              <td>GWP <div class="measure">(Kg CO<span style="font-size: 8px">2</span> eq)</div></td>
+              <td>ODP <div class="measure">(Kg CGC-11 eq)</div></td>
+              <td>AP <div class="measure">(Kg SO<span style="font-size: 8px">2</span> eq)</div></td>
+              <td>POPC <div class="measure">(Kg C<span style="font-size: 8px">2</span>H<span style="font-size: 8px">4</span> eq)</div></td>
+              <td>EP <div class="measure">(Kg PO4 eq)</div></td>
+              <td>ENR <div class="measure">(MJ eq)</div></td>
+              <td>ER <div class="measure">(MJ eq)</div></td>
+            </tr>
+            <tr> 
+              <td rowspan="3">Cradle-to-gate</td>
+              <td class="value-field"><%= "%.2E" % @material_composition.adp %> </td>
+              <td class="value-field"><%= "%.2E" % @material_composition.gwp %></td>
+              <td class="value-field"><%= "%.2E" % @material_composition.odp %></td>
+              <td class="value-field"><%= "%.2E" % @material_composition.ap %></td>
+              <td class="value-field"><%= "%.2E" % @material_composition.pocp %></td>
+              <td class="value-field"><%= "%.2E" % @material_composition.ep %></td>
+              <td class="value-field"><%= "%.2E" % @material_composition.er %></td>
+              <td class="value-field"><%= "%.2E" % @material_composition.enr %></td>
+            </tr>
+            <tr class="header">
+              <td colspan="2">Espessura <div class="measure">(m)</div></td>
+              <td colspan="2">Peso <div class="measure">(kg)</div></td>
+              <td colspan="2">Resistência Térmica <div class="measure">(λ)</div></td>
+              <td>Custo de construção <div class="measure">(€)</div></td>
+              <td>Custo de Manutenção <div class="measure">(€)</div></td>
+            </tr>
+             <tr> 
+              
+              <td colspan="2" class="value-field"><%= @material_composition.width_calc %> </td>
+              <td colspan="2" class="value-field"><%= @material_composition.weight_calc %></td>
+              <td colspan="2" class="value-field"><%= @material_composition[:lambda] %></td>
+              <td class="value-field"><%= @material_composition.construction_cost %></td>
+              <td class="value-field"><%= @material_composition.maintenance_cost %></td>
+            </tr>
+
+
+            <tr>
+              <td colspan="10">Método(s) de LCA: CML 2 baseline 2000 versão 3.02 (para avaliar o Impacto ambiental) e Cumulative Energy Demand versão 1.09 (Para avaliar a energia)</td>
+            </tr>
+            <tr>
+              <td colspan="10">Bibliotecas do LCI: Ecoinvent system process</td>
+            </tr>
+            
+          </table>
+
+
+
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

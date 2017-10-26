@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class MaterialTest < ActiveSupport::TestCase
+class MaterialJoinTest < ActiveSupport::TestCase
   # test "the truth" do
   #   assert true
   # end

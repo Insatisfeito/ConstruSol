@@ -1,8 +1,8 @@
-ActiveAdmin.register Material do
+ActiveAdmin.register BaseMaterial do
 # See permitted parameters documentation:
 # https://github.com/activeadmin/activeadmin/blob/master/docs/2-resource-customization.md#setting-up-strong-parameters
 #
-permit_params :name, :e, :lambda, :adp, :gwp, :odp, :ap, :popc, :ep, :enr, :er, :weight, :cost, :brick, :brick_height, :brick_width, :brick_depth, :brick_count_meter_square
+permit_params :description, :adp, :gwp, :odp, :ap, :pocp, :ep, :enr, :er, :lambda
 #
 # or
 #
@@ -12,6 +12,4 @@ permit_params :name, :e, :lambda, :adp, :gwp, :odp, :ap, :popc, :ep, :enr, :er, 
 #   permitted
 # end
 
-
 end
-

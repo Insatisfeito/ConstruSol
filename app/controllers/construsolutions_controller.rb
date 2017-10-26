@@ -82,65 +82,32 @@ class ConstrusolutionsController < InheritedResources::Base
 
   def create
     @construsolution = Construsolution.new(construsolution_params)
-    @construsolution.adp = 0
-    @construsolution.gwp = 0
-    @construsolution.odp = 0
-    @construsolution.ap = 0
-    @construsolution.popc = 0
-    @construsolution.ep = 0
-    @construsolution.er = 0
-    @construsolution.enr = 0
     respond_to do |format|
       if @construsolution.save
         if @construsolution.construtype == 0
           @construsolution.material_nv_ids.each do |mat|
             if mat != ""
-              material = Material.find(mat)
-              jt = @construsolution.join_tables.new(material: material)
+              material = MaterialComposition.find(mat)
+              jt = @construsolution.join_tables.new(material_composition: material)
               jt.construtype = 0
               jt.save
-              puts material.to_s
-              @construsolution.adp += material.adp * material.weight
-              @construsolution.gwp += material.gwp * material.weight
-              @construsolution.odp += material.odp * material.weight
-              @construsolution.ap += material.ap * material.weight
-              @construsolution.popc += material.popc * material.weight
-              @construsolution.ep += material.ep * material.weight
-              @construsolution.er += material.er * material.weight
-              @construsolution.enr += material.enr * material.weight
             end
           end
         else
           @construsolution.material_ext_ids.each do |mat|
             if mat != ""
-              material = Material.find(mat)
-              jt = @construsolution.join_tables.new(material: material)
+              material = MaterialComposition.find(mat)
+              jt = @construsolution.join_tables.new(material_composition: material)
               jt.construtype = 0
               jt.save
-              @construsolution.adp += material.adp * material.weight
-              @construsolution.gwp += material.gwp * material.weight
-              @construsolution.odp += material.odp * material.weight
-              @construsolution.ap += material.ap * material.weight
-              @construsolution.popc += material.popc * material.weight
-              @construsolution.ep += material.ep * material.weight
-              @construsolution.er += material.er * material.weight
-              @construsolution.enr += material.enr * material.weight
             end
           end
           @construsolution.material_int_ids.each do |mat|
             if mat != ""
-              material = Material.find(mat)
-              jt = @construsolution.join_tables.new(material: material)
+              material = MaterialComposition.find(mat)
+              jt = @construsolution.join_tables.new(material_composition: material)
               jt.construtype = 1
               jt.save
-              @construsolution.adp += material.adp * material.weight
-              @construsolution.gwp += material.gwp * material.weight
-              @construsolution.odp += material.odp * material.weight
-              @construsolution.ap += material.ap * material.weight
-              @construsolution.popc += material.popc * material.weight
-              @construsolution.ep += material.ep * material.weight
-              @construsolution.er += material.er * material.weight
-              @construsolution.enr += material.enr * material.weight
             end
           end
         end
@@ -161,22 +128,38 @@ class ConstrusolutionsController < InheritedResources::Base
       @calcs[:rsi] = 0.13
       @calcs[:rse] = 0.04
       @calcs[:uNoDiv] = @calcs[:rse] + @calcs[:rsi]
-      @calcs[:cost] = 0
-      @construsolution.materials.each do |m|
-        @calcs[:uNoDiv] += m.e/m.lambda
-        @calcs[:cost] += m.cost
+      @calcs[:cost_c] = 0
+      @calcs[:cost_m] = 0
+      @calcs[:adp] = 0
+      @calcs[:gwp] = 0
+      @calcs[:odp] = 0
+      @calcs[:ap] = 0
+      @calcs[:pocp] = 0
+      @calcs[:ep] = 0
+      @calcs[:er] = 0
+      @calcs[:enr] = 0
+      @construsolution.material_compositions.each do |m|
+        m.material_joins.each do |mat|
+          @calcs[:uNoDiv] += mat.width/m[:lambda]
+        end
+        @calcs[:cost_c] += m.construction_cost
+        @calcs[:cost_m] += m.maintenance_cost
       end
       @calcs[:u] = (1 / @calcs[:uNoDiv]).round(4)
     else
       @calcs[:rsi] = 0.13
       @calcs[:rse] = 0.13
       @calcs[:uNoDiv] = @calcs[:rse] + @calcs[:rsi]
-      @calcs[:cost] = 0
+      @calcs[:cost_c] += m.construction_cost
+      @calcs[:cost_m] += m.maintenance_cost
       @construsolution.join_tables.each do |m|
-        material = Material.find(m.material_id)
-        @calcs[:cost] += material.cost
+        material = MaterialComposition.find(m.material_id)
+        @calcs[:cost_c] += m.construction_cost
+        @calcs[:cost_m] += m.maintenance_cost
         if m.construtype == 1
-          @calcs[:uNoDiv] += material.e/material.lambda
+          m.material_joins.each do |mat|
+            @calcs[:uNoDiv] += mat.width/m[:lambda]
+          end
         end
       end
       @calcs[:u] = (1 / @calcs[:uNoDiv]).round(4)

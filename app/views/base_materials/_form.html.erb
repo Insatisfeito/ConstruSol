@@ -1,0 +1,67 @@
+<%= form_with(model: base_material, local: true) do |form| %>
+  <% if base_material.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(base_material.errors.count, "error") %> prohibited this base_material from being saved:</h2>
+
+      <ul>
+      <% base_material.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :description %>
+    <%= form.text_field :description, id: :base_material_description %>
+  </div>
+
+  <div class="field">
+    <%= form.label :adp %>
+    <%= form.text_field :adp, id: :base_material_adp %>
+  </div>
+
+  <div class="field">
+    <%= form.label :gwp %>
+    <%= form.text_field :gwp, id: :base_material_gwp %>
+  </div>
+
+  <div class="field">
+    <%= form.label :odp %>
+    <%= form.text_field :odp, id: :base_material_odp %>
+  </div>
+
+  <div class="field">
+    <%= form.label :ap %>
+    <%= form.text_field :ap, id: :base_material_ap %>
+  </div>
+
+  <div class="field">
+    <%= form.label :pocp %>
+    <%= form.text_field :pocp, id: :base_material_pocp %>
+  </div>
+
+  <div class="field">
+    <%= form.label :ep %>
+    <%= form.text_field :ep, id: :base_material_ep %>
+  </div>
+
+  <div class="field">
+    <%= form.label :enr %>
+    <%= form.text_field :enr, id: :base_material_enr %>
+  </div>
+
+  <div class="field">
+    <%= form.label :er %>
+    <%= form.text_field :er, id: :base_material_er %>
+  </div>
+
+  <div class="field">
+    <%= form.label :lambda %>
+    <%= form.text_field :lambda, id: :base_material_lambda %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

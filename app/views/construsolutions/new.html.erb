@@ -59,15 +59,15 @@
               <div class="tab-content">
                 <div class="tab-pane active" id="panel1">
                   <h2>Adicionar Material:</h2>
-                  <%= f.select :material_nv_ids, Material.all.collect {|x| [x.name, x.id]}, {}, {:multiple => true, :class => "chosen-select", :style=>"min-width:200px !important;max-width:400px !important"} %>
+                  <%= f.select :material_nv_ids, MaterialComposition.all.collect {|x| [x.description, x.id]}, {}, {:multiple => true, :class => "chosen-select", :style=>"min-width:200px !important;max-width:400px !important"} %>
                   <br/>
                 </div>
                 <div class="tab-pane" id="panel2">
                   <h2>Adicionar Material à Camada Exterior:</h2>
-                  <%= f.select :material_ext_ids, Material.all.collect {|x| [x.name, x.id]}, {}, {:multiple => true, :class => "chosen-select", :style=>"min-width:200px !important;max-width:400px !important"} %>
+                  <%= f.select :material_ext_ids, MaterialComposition.all.collect {|x| [x.description, x.id]}, {}, {:multiple => true, :class => "chosen-select", :style=>"min-width:200px !important;max-width:400px !important"} %>
                   <br/>
                   <h2>Adicionar Material à Camada Interior:</h2>
-                  <%= f.select :material_int_ids, Material.all.collect {|x| [x.name, x.id]}, {}, {:multiple => true, :class => "chosen-select", :style=>"min-width:200px !important;max-width:400px !important"} %>
+                  <%= f.select :material_int_ids, MaterialComposition.all.collect {|x| [x.description, x.id]}, {}, {:multiple => true, :class => "chosen-select", :style=>"min-width:200px !important;max-width:400px !important"} %>
                   <br/>
                 </div>
               </div>

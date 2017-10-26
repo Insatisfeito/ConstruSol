@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class JoinTableTest < ActiveSupport::TestCase
+class MaterialCompositionTest < ActiveSupport::TestCase
   # test "the truth" do
   #   assert true
   # end

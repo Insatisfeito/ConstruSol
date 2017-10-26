@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170825224940) do
+ActiveRecord::Schema.define(version: 20171025163634) do
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string "namespace"
@@ -43,20 +43,25 @@ ActiveRecord::Schema.define(version: 20170825224940) do
     t.index ["reset_password_token"], name: "index_admin_users_on_reset_password_token", unique: true
   end
 
-  create_table "construsolutions", force: :cascade do |t|
-    t.string "name"
-    t.string "ref"
-    t.string "desc"
-    t.string "from"
-    t.integer "construtype"
+  create_table "base_materials", force: :cascade do |t|
+    t.string "description"
     t.float "adp"
     t.float "gwp"
     t.float "odp"
     t.float "ap"
-    t.float "popc"
+    t.float "pocp"
     t.float "ep"
     t.float "enr"
     t.float "er"
+    t.float "lambda"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "construsolutions", force: :cascade do |t|
+    t.string "name"
+    t.string "ref"
+    t.integer "construtype"
     t.string "cimage_file_name"
     t.string "cimage_content_type"
     t.integer "cimage_file_size"
@@ -65,34 +70,31 @@ ActiveRecord::Schema.define(version: 20170825224940) do
 
   create_table "join_tables", force: :cascade do |t|
     t.integer "construsolution_id"
-    t.integer "material_id"
+    t.integer "material_composition_id"
     t.integer "construtype"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["construsolution_id", "material_id"], name: "index_join_tables_on_construsolution_id_and_material_id"
+    t.index ["construsolution_id", "material_composition_id"], name: "idx_constr_material_comp"
   end
 
-  create_table "materials", force: :cascade do |t|
-    t.string "name"
-    t.float "e"
+  create_table "material_compositions", force: :cascade do |t|
+    t.string "description"
+    t.integer "mtype"
+    t.float "construction_cost"
+    t.float "maintenance_cost"
     t.float "lambda"
-    t.float "adp"
-    t.float "gwp"
-    t.float "odp"
-    t.float "ap"
-    t.float "popc"
-    t.float "ep"
-    t.float "enr"
-    t.float "er"
-    t.float "weight"
-    t.float "cost"
-    t.boolean "brick"
-    t.float "brick_height"
-    t.float "brick_width"
-    t.float "brick_depth"
-    t.float "brick_count_meter_square"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "material_joins", force: :cascade do |t|
+    t.integer "base_material_id"
+    t.integer "material_composition_id"
+    t.float "width"
+    t.float "weight"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["base_material_id", "material_composition_id"], name: "idx_material_material_comp"
   end
 
   create_table "transports", force: :cascade do |t|

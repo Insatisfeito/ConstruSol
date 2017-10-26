@@ -1,0 +1,173 @@
+<div class="pageheader">
+   <h2>Material Derivado</h2>
+   <p class="description">Criar Novo Material Derivado</p>
+   <div class="breadcrumb-wrapper hidden-xs">
+      <span class="label">Estás aqui:</span>
+      <ol class="breadcrumb">
+         <li class="active">Novo Material Derivado</li>
+         <li class="active">Criar Novo</li>
+      </ol>
+   </div>
+</div>
+<section id="main-content" class="animated fadeInUp">
+   <div class="row">
+      <div class="col-md-12">
+         <div class="panel panel-default" style="min-height: 600px">
+            <div class="panel-heading">
+               <h3 class="panel-title">Novo Material Derivado</h3>
+            </div>
+            <div class="panel-body">
+               <%= form_for @material_composition, :html => {:class => 'form-horizontal form-border'}  do |f| %>
+               <div class="col-md-12">
+                  <div class="form-group">
+                     <label class="col-sm-4 ">Criar novo: </label>
+                     <div class="col-sm-8">
+                        <%= f.select(:mtype, onchange:"console.log('virou');") do %>
+                          <% [['Material', 0], ['Alvenaria: Parede Simples', 1], ['Alvenaria: Parede Dupla', 2]].each do |c| -%>
+                            <%= content_tag(:option, c.first, value: c.last) %>
+                          <% end %>
+                        <% end %>
+                     </div>
+                  </div>
+                  <div class="form-group">
+                     <label class="col-sm-4 ">Descrição</label>
+                     <div class="col-sm-8">
+                        <%= f.text_field :description, class:"form-control", :required => true %>
+                     </div>
+                  </div>
+                  <div class="panel panel-default">
+                     <div class="tab-content">
+                        <div class="tab-pane active" id="panel0">
+                          <div class="form-group">
+                           <label class="col-sm-4 ">Escolher Material:</label>
+                           <div class="col-sm-8">
+                              <%= f.select :material_composition_add, BaseMaterial.all.collect {|x| [x.description, x.id]}, {}, {:multiple => false, :class => "chosen-select", :style=>"min-width:200px !important;max-width:400px !important"} %>
+                           </div>
+                           </div>
+                           <div class="form-group">
+                              <label class="col-sm-4 ">Espessura (m)</label>
+                              <div class="col-sm-8">
+                                 <%= f.number_field :width, step: :any, class:"form-control" %>
+                              </div>
+                           </div>
+                           <div class="form-group">
+                              <label class="col-sm-4 ">Peso (kg/m2)</label>
+                              <div class="col-sm-8">
+                                 <%= f.number_field :weight, step: :any, class:"form-control" %>
+                              </div>
+                           </div>
+                        </div>
+                        <div class="tab-pane" id="panel1">
+                          <div class="form-group">
+                           <label class="col-sm-4 ">Escolher Material:</label>
+                           <div class="col-sm-8">
+                              <%= f.select :material_composition_add, BaseMaterial.all.collect {|x| [x.description, x.id]}, {}, {:multiple => false, :class => "chosen-select", :style=>"min-width:200px !important;max-width:400px !important"} %>
+                           </div>
+                           </div>
+                           <div class="form-group">
+                              <label class="col-sm-4 ">Espessura (m)</label>
+                              <div class="col-sm-8">
+                                 <%= f.number_field :width_0, step: :any, class:"form-control" %>
+                              </div>
+                           </div>
+                           <div class="form-group">
+                              <label class="col-sm-4 ">Peso (kg/m2)</label>
+                              <div class="col-sm-8">
+                                 <%= f.number_field :weight_0, step: :any, class:"form-control" %>
+                              </div>
+                           </div>
+                           <div class="form-group">
+                              <label class="col-sm-4 ">Resistência Térmica (kg/m2)</label>
+                              <div class="col-sm-8">
+                                 <%= f.number_field :lambda_0, step: :any, class:"form-control" %>
+                                 <a href="alvenaria_simples.jpg" target="_blank" style="margin: 5px; font-size: 10px">Consultar Tabela</a>
+                              </div>
+                           </div>
+                        </div>
+                        <div class="tab-pane" id="panel2">
+                           <div class="form-group">
+                           <label class="col-sm-4 ">Escolher Material 1:</label>
+                           <div class="col-sm-8">
+                              <%= f.select :material_composition_add_1, BaseMaterial.all.collect {|x| [x.description, x.id]}, {}, {:multiple => false, :class => "chosen-select", :style=>"min-width:200px !important;max-width:400px !important"} %>
+                           </div>
+                           </div>
+                           <div class="form-group">
+                              <label class="col-sm-4 ">Espessura Material 1 (m)</label>
+                              <div class="col-sm-8">
+                                 <%= f.number_field :width_1, step: :any, class:"form-control" %>
+                           </div>
+                           </div>
+                           <div class="form-group">
+                              <label class="col-sm-4 ">Peso Material 1 (kg/m2)</label>
+                              <div class="col-sm-8">
+                                 <%= f.number_field :weight_1, step: :any, class:"form-control" %>
+                              </div>
+                           </div>
+                           <div class="form-group">
+                           <label class="col-sm-4 ">Escolher Material 2:</label>
+                           <div class="col-sm-8">
+                              <%= f.select :material_composition_add_2, BaseMaterial.all.collect {|x| [x.description, x.id]}, {}, {:multiple => false, :class => "chosen-select", :style=>"min-width:200px !important;max-width:400px !important"} %>
+                           </div>
+                           </div>
+                           <div class="form-group">
+                              <label class="col-sm-4 ">Espessura Material 2 (m)</label>
+                              <div class="col-sm-8">
+                                 <%= f.number_field :width_2, step: :any, class:"form-control" %>
+                              </div>
+                           </div>
+                           <div class="form-group">
+                              <label class="col-sm-4 ">Peso Material 2 (kg/m2)</label>
+                              <div class="col-sm-8">
+                                 <%= f.number_field :weight_2, step: :any, class:"form-control"%>
+                              </div>
+                           </div>
+                           <div class="form-group">
+                              <label class="col-sm-4 ">Resistência Térmica (kg/m2)</label>
+                              <div class="col-sm-8">
+                                 <%= f.number_field :lambda_1, step: :any, class:"form-control" %>
+                                 <a href="/alvenaria_dupla.jpg" target="_blank" style="margin: 5px; font-size: 10px">Consultar Tabela</a>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                     <p>
+                     </p>
+                  </div>
+                  <div class="form-group">
+                     <label class="col-sm-4 ">Custo de Construção (€)</label>
+                     <div class="col-sm-8">
+                        <%= f.number_field :construction_cost, step: :any, class:"form-control", :required => true %>
+                     </div>
+                  </div>
+                  <div class="form-group">
+                     <label class="col-sm-4 ">Custo de Manutenção (€)</label>
+                     <div class="col-sm-8">
+                        <%= f.number_field :maintenance_cost, step: :any, class:"form-control", :required => true %>
+                     </div>
+                  </div>
+                  <%= f.submit :class => "btn btn-success" %>
+               </div>
+            </div>
+         </div>
+      </div>
+      <% end %>
+      <div>
+         <ul class="nav nav-tabs">
+            <li class="active"><a href="#panel0" id="panel0link" data-toggle="tab" aria-expanded="true"></a>
+            </li>
+            <li class=""><a href="#panel1" id="panel1link" data-toggle="tab" aria-expanded="false"></a>
+            </li>
+            <li class=""><a href="#panel2" id="panel2link" data-toggle="tab" aria-expanded="false"></a>
+            </li>
+         </ul>
+      </div>
+   </div>
+</div>
+</section>
+<script>
+   $('#material_composition_mtype').on('change', function() {
+     console.log(this.value)
+     console.log('.nav-tabs a[href="#panel' + this.value +'"]')
+     $('.nav-tabs a[href="#panel' + this.value +'"]').tab('show');
+   })  
+</script>
