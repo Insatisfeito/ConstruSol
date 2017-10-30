@@ -77,6 +77,28 @@ transports = [{
   ep:0.000000171,
   enr:0.00222,
   er:0.0000291
+},{
+  name: "Avião", 						
+  simapro_name: "",
+  adp:0.00462,
+  gwp:7.02E+03,
+  odp:0.000458,
+  ap:5.14E+01,
+  popc:2.54E+00,
+  ep:1.32E+01,
+  enr:89613.45,
+  er:8268
+},{
+  name: "Navio",
+  simapro_name: "",							
+  adp:2.89E-12,  
+  gwp:0.0000115,
+  odp:1.86E-12,
+  ap:0.000000242,
+  popc:7.89E-09,
+  ep:2.66E-08,
+  enr:0.000175625,
+  er:0.000003642
 }]
 
   transports.each do |transport|

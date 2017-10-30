@@ -14,18 +14,18 @@
   <div class="col-md-12">
     <div class="panel panel-default">
       <div class="panel-body" style="min-height: 200px"> 
-                <% @results.each do |constr, constr_params| %>
+          <% @results.each do |constr, constr_params| %>
              <table class="table table-bordered">
             <tr>
               <td> Solução Construtiva </td>
               <td colspan="8"> <%= constr_params[:constr].construtype == 0 ? "Parede não ventilada" : "Parede ventilada" %> : <%= constr_params[:constr].name %> </td>
-              <td colspan="2"> Ref: <%= constr_params[:constr].ref %> </td>
+              <td colspan="3"> Ref: <%= constr_params[:constr].ref %> </td>
             </tr>
             <tr>
               <td class="header" rowspan="2" colspan="1">  </td>
               <td class="header" colspan="6"> Categorias de impacto Ambiental LCA</td>
               <td class="header" colspan="2"> Energia incorporada </td>
-              <td class="header" colspan="2">  </td>
+              <td class="header" colspan="3">  </td>
             </tr>
             <tr class="header"> 
               <td>ADP <div class="measure">(kb Sb eq)</div></td>
@@ -36,20 +36,22 @@
               <td>EP <div class="measure">(Kg PO4 eq)</div></td>
               <td>ENR <div class="measure">(MJ eq)</div></td>
               <td>ER <div class="measure">(MJ eq)</div></td>
-              <td>Custo <div class="measure"><div class="measure">(€/m<sup>2</sup>)</div></div></td>
+              <td>Custo Construção<div class="measure"><div class="measure">(€/m<sup>2</sup>)</div></div></td>
+              <td>Custo Manutenção<div class="measure"><div class="measure">(€/m<sup>2</sup>)</div></div></td>
               <td>U <div class="measure"><div class="measure">(W/m<sub>2</sub>.ºC)</div></div></td>
             </tr>
             <tr style="font-weight: 600;background:#cee3e5"> 
               <td>Total</td>
-              <td class="value-field" id="adp<%= constr_params[:constr].id %>"><%= "%.2E" % (constr_params[:adp] + constr_params[:constr].adp) %> </td>
-              <td class="value-field" id="gwp<%= constr_params[:constr].id %>"><%= "%.2E" % (constr_params[:gwp] + constr_params[:constr].gwp) %></td>
-              <td class="value-field" id="odp<%= constr_params[:constr].id %>"><%= "%.2E" % (constr_params[:odp] + constr_params[:constr].odp) %></td>
-              <td class="value-field" id="ap<%= constr_params[:constr].id %>"><%= "%.2E" % (constr_params[:ap] + constr_params[:constr].ap) %></td>
-              <td class="value-field" id="popc<%= constr_params[:constr].id %>"><%= "%.2E" % (constr_params[:popc] + constr_params[:constr].popc) %></td>
-              <td class="value-field" id="ep<%= constr_params[:constr].id %>"><%= "%.2E" % (constr_params[:ep] + constr_params[:constr].ep) %></td>
-              <td class="value-field" id="enr<%= constr_params[:constr].id %>"><%= "%.2E" % (constr_params[:enr] + constr_params[:constr].enr) %></td>
-              <td class="value-field" id="er<%= constr_params[:constr].id %>"><%= "%.2E" % (constr_params[:er] + constr_params[:constr].er) %></td>
-              <td class="value-field" id="cost<%= constr_params[:constr].id %>"><%= constr_params[:cost]  %></td>
+              <td class="value-field" id="adp<%= constr_params[:constr].id %>"><%= "%.2E" % (constr_params[:impacts][:adp] + constr_params[:constr].calcImpacts[:adp]) %> </td>
+              <td class="value-field" id="gwp<%= constr_params[:constr].id %>"><%= "%.2E" % (constr_params[:impacts][:gwp] + constr_params[:constr].calcImpacts[:gwp]) %></td>
+              <td class="value-field" id="odp<%= constr_params[:constr].id %>"><%= "%.2E" % (constr_params[:impacts][:odp] + constr_params[:constr].calcImpacts[:odp]) %></td>
+              <td class="value-field" id="ap<%= constr_params[:constr].id %>"><%= "%.2E" % (constr_params[:impacts][:ap] + constr_params[:constr].calcImpacts[:ap]) %></td>
+              <td class="value-field" id="popc<%= constr_params[:constr].id %>"><%= "%.2E" % (constr_params[:impacts][:pocp] + constr_params[:constr].calcImpacts[:pocp]) %></td>
+              <td class="value-field" id="ep<%= constr_params[:constr].id %>"><%= "%.2E" % (constr_params[:impacts][:ep] + constr_params[:constr].calcImpacts[:ep]) %></td>
+              <td class="value-field" id="enr<%= constr_params[:constr].id %>"><%= "%.2E" % (constr_params[:impacts][:enr] + constr_params[:constr].calcImpacts[:enr]) %></td>
+              <td class="value-field" id="er<%= constr_params[:constr].id %>"><%= "%.2E" % (constr_params[:impacts][:er] + constr_params[:constr].calcImpacts[:er]) %></td>
+              <td class="value-field" id="costC<%= constr_params[:constr].id %>"><%= constr_params[:constr].costsC  %></td>
+              <td class="value-field" id="costM<%= constr_params[:constr].id %>"><%= constr_params[:constr].costsM  %></td>
               <td class="value-field" id="u<%= constr_params[:constr].id %>"><%= @calcs["#{constr_params[:constr].id}"][:u] %></td>
             </tr>
 
@@ -90,48 +92,50 @@
             </tr>
             <tr> 
               <td>Cradle-to-gate</td>
-              <td class="value-field"><%= "%.2E" % constr_params[:constr].adp %> </td>
-              <td class="value-field"><%= "%.2E" % constr_params[:constr].gwp %></td>
-              <td class="value-field"><%= "%.2E" % constr_params[:constr].odp %></td>
-              <td class="value-field"><%= "%.2E" % constr_params[:constr].ap %></td>
-              <td class="value-field"><%= "%.2E" % constr_params[:constr].popc %></td>
-              <td class="value-field"><%= "%.2E" % constr_params[:constr].ep %></td>
-              <td class="value-field"><%= "%.2E" % constr_params[:constr].enr %></td>
-              <td class="value-field"><%= "%.2E" % constr_params[:constr].er %></td>
+              <td class="value-field"><%= "%.2E" % constr_params[:constr].calcImpacts[:adp] %> </td>
+              <td class="value-field"><%= "%.2E" % constr_params[:constr].calcImpacts[:gwp] %></td>
+              <td class="value-field"><%= "%.2E" % constr_params[:constr].calcImpacts[:odp] %></td>
+              <td class="value-field"><%= "%.2E" % constr_params[:constr].calcImpacts[:ap] %></td>
+              <td class="value-field"><%= "%.2E" % constr_params[:constr].calcImpacts[:pocp] %></td>
+              <td class="value-field"><%= "%.2E" % constr_params[:constr].calcImpacts[:ep] %></td>
+              <td class="value-field"><%= "%.2E" % constr_params[:constr].calcImpacts[:enr] %></td>
+              <td class="value-field"><%= "%.2E" % constr_params[:constr].calcImpacts[:er] %></td>
             </tr>
             <tr> 
               <td>Tank-to-wheel</td>
-              <td class="value-field"><%= "%.2E" % constr_params[:adp] %> </td>
-              <td class="value-field"><%= "%.2E" % constr_params[:gwp] %></td>
-              <td class="value-field"><%= "%.2E" % constr_params[:odp] %></td>
-              <td class="value-field"><%= "%.2E" % constr_params[:ap] %></td>
-              <td class="value-field"><%= "%.2E" % constr_params[:popc] %></td>
-              <td class="value-field"><%= "%.2E" % constr_params[:ep] %></td>
-              <td class="value-field"><%= "%.2E" % constr_params[:enr] %></td>
-              <td class="value-field"><%= "%.2E" % constr_params[:er] %></td>
+              <td class="value-field"><%= "%.2E" % constr_params[:impacts][:adp] %> </td>
+              <td class="value-field"><%= "%.2E" % constr_params[:impacts][:gwp] %></td>
+              <td class="value-field"><%= "%.2E" % constr_params[:impacts][:odp] %></td>
+              <td class="value-field"><%= "%.2E" % constr_params[:impacts][:ap] %></td>
+              <td class="value-field"><%= "%.2E" % constr_params[:impacts][:pocp] %></td>
+              <td class="value-field"><%= "%.2E" % constr_params[:impacts][:ep] %></td>
+              <td class="value-field"><%= "%.2E" % constr_params[:impacts][:enr] %></td>
+              <td class="value-field"><%= "%.2E" % constr_params[:impacts][:er] %></td>
             </tr>
             <tr style="font-weight: 600;background:#cee3e5"> 
               <td>Total</td>
-              <td class="value-field"><%= "%.2E" % (constr_params[:adp] + constr_params[:constr].adp) %> </td>
-              <td class="value-field"><%= "%.2E" % (constr_params[:gwp] + constr_params[:constr].gwp) %></td>
-              <td class="value-field"><%= "%.2E" % (constr_params[:odp] + constr_params[:constr].odp) %></td>
-              <td class="value-field"><%= "%.2E" % (constr_params[:ap] + constr_params[:constr].ap) %></td>
-              <td class="value-field"><%= "%.2E" % (constr_params[:popc] + constr_params[:constr].popc) %></td>
-              <td class="value-field"><%= "%.2E" % (constr_params[:ep] + constr_params[:constr].ep) %></td>
-              <td class="value-field"><%= "%.2E" % (constr_params[:enr] + constr_params[:constr].enr) %></td>
-              <td class="value-field"><%= "%.2E" % (constr_params[:er] + constr_params[:constr].er) %></td>
+              <td class="value-field"><%= "%.2E" % (constr_params[:impacts][:adp] + constr_params[:constr].calcImpacts[:adp]) %> </td>
+              <td class="value-field"><%= "%.2E" % (constr_params[:impacts][:gwp] + constr_params[:constr].calcImpacts[:gwp]) %></td>
+              <td class="value-field"><%= "%.2E" % (constr_params[:impacts][:odp] + constr_params[:constr].calcImpacts[:odp]) %></td>
+              <td class="value-field"><%= "%.2E" % (constr_params[:impacts][:ap] + constr_params[:constr].calcImpacts[:ap]) %></td>
+              <td class="value-field"><%= "%.2E" % (constr_params[:impacts][:pocp] + constr_params[:constr].calcImpacts[:pocp]) %></td>
+              <td class="value-field"><%= "%.2E" % (constr_params[:impacts][:ep] + constr_params[:constr].calcImpacts[:ep]) %></td>
+              <td class="value-field"><%= "%.2E" % (constr_params[:impacts][:enr] + constr_params[:constr].calcImpacts[:enr]) %></td>
+              <td class="value-field"><%= "%.2E" % (constr_params[:impacts][:er] + constr_params[:constr].calcImpacts[:er]) %></td>
             </tr>
             <tr>
               <td class="header"  rowspan="2"> Materiais Considerados (Exterior - Interior) </td>
               <td class="header" colspan="2"> Quantidade por m<sub>2</sub> </td>
-              <td class="header" colspan="2"> Custo Material</td>
+              <td class="header" colspan="1"> Custo Construção</td>
+              <td class="header" colspan="2"> Custo Manutenção</td>
               <td class="header" colspan="2"> Tipo de transporte </td>
               <td class="header" colspan="2"> Distância </td>
               
             </tr>
             <tr class="header"> 
               <td colspan="2">kg / m<sub>2</sub></td>
-              <td class="header" colspan="2">E/m2 </td>
+              <td class="header" colspan="1">€/m2 </td>
+              <td class="header" colspan="2">€/m2 </td>
               <td class="header" colspan="2">  </td>
               <td class="header" colspan="2"> Km </td> 
             </tr>
@@ -140,9 +144,10 @@
 
              
                 <tr>
-                  <td> <%= mat_params["mat"].name%> </td>
-                  <td colspan="2" class="value-field"> <%= "%.2E" % mat_params["mat"].weight%> </td>
-                  <td colspan="2" class="value-field"> <%= "%.2E" % constr_params[:cost] %> </td>
+                  <td> <%= mat_params["mat"].description%> </td>
+                  <td colspan="2" class="value-field"> <%= "%.2E" % mat_params["mat"].calcWeight%> </td>
+                  <td colspan="1" class="value-field"> <%= "%.2E" % mat_params["mat"][:construction_cost] %> </td>
+                  <td colspan="2" class="value-field"> <%= "%.2E" % mat_params["mat"][:maintenance_cost] %> </td>
                   <td colspan="2" class="value-field"><%= mat_params["transport"].name%></td>
                   <td colspan="2" class="value-field"><%= "%.2E" % mat_params["distance"]%></td>
                 </tr>

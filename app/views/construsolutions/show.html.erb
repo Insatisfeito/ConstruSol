@@ -26,13 +26,13 @@
             <tr>
               <td> Solução Construtiva </td>
               <td colspan="8"> <%= @construsolution.construtype == 0 ? "Parede não ventilada" : "Parede ventilada" %> : <%= @construsolution.name %> </td>
-              <td> Ref: <%= @construsolution.ref %> </td>
+              <td colspan="2"> Ref: <%= @construsolution.ref %> </td>
             </tr>
             <tr>
                <td rowspan="<%= @construsolution.material_compositions.count + 6 %>"> <%= image_tag @construsolution.cimage.url(:medium) %> </td>
               <td class="header"  rowspan="2"> Fase de ciclo de vida </td>
               <td class="header" colspan="6"> Categorias de impacto Ambiental LCA</td>
-              <td class="header" colspan="2"> Energia incorporada </td>
+              <td class="header" colspan="3"> Energia incorporada </td>
             </tr>
             <tr class="header"> 
               <td>ADP <div class="measure">(kb Sb eq)</div></td>
@@ -42,24 +42,24 @@
               <td>POcp <div class="measure">(Kg C<span style="font-size: 8px">2</span>H<span style="font-size: 8px">4</span> eq)</div></td>
               <td>EP <div class="measure">(Kg PO4 eq)</div></td>
               <td>ENR <div class="measure">(MJ eq)</div></td>
-              <td>ER <div class="measure">(MJ eq)</div></td>
+              <td colspan="2">ER <div class="measure">(MJ eq)</div></td>
             </tr>
             <tr> 
               <td>Cradle-to-gate</td>
-              <td class="value-field"><%= "%.2E" % @calcs[:adp] %> </td>
-              <td class="value-field"><%= "%.2E" % @calcs[:gwp] %></td>
-              <td class="value-field"><%= "%.2E" % @calcs[:odp] %></td>
-              <td class="value-field"><%= "%.2E" % @calcs[:ap] %></td>
-              <td class="value-field"><%= "%.2E" % @calcs[:pocp] %></td>
-              <td class="value-field"><%= "%.2E" % @calcs[:ep] %></td>
-              <td class="value-field"><%= "%.2E" % @calcs[:enr] %></td>
-              <td class="value-field"><%= "%.2E" % @calcs[:er] %></td>
+              <td class="value-field"><%= "%.2E" % @calcs[:impacts][:adp] %> </td>
+              <td class="value-field"><%= "%.2E" % @calcs[:impacts][:gwp] %></td>
+              <td class="value-field"><%= "%.2E" % @calcs[:impacts][:odp] %></td>
+              <td class="value-field"><%= "%.2E" % @calcs[:impacts][:ap] %></td>
+              <td class="value-field"><%= "%.2E" % @calcs[:impacts][:pocp] %></td>
+              <td class="value-field"><%= "%.2E" % @calcs[:impacts][:ep] %></td>
+              <td class="value-field"><%= "%.2E" % @calcs[:impacts][:enr] %></td>
+              <td class="value-field" colspan="2"><%= "%.2E" % @calcs[:impacts][:er] %></td>
             </tr>
             <tr>
               <td class="header"  rowspan="2"> Materiais Considerados (Exterior - Interior) </td>
               <td class="header" colspan="6"> Propriedades Térmicas</td>
               <td class="header"> Quantidade por m<sub>2</sub> </td>
-              <td class="header"> Custos por m<sub>2</sub> </td>
+              <td class="header" colspan="2"> Custos € / m<sub>2</sub> </td>
             </tr>
             <tr class="header"> 
               <td>e <div class="measure">(m)</div></td>
@@ -69,7 +69,8 @@
               <td>R <div class="measure">(m<sub>2</sub>.ºC/W)</div></td>
               <td>U <div class="measure">(W/m<sub>2</sub>.ºC)</div></td>
               <td>kg / m<sub>2</sub></td>
-              <td>E / m<sub>2</sub></td>
+              <td>Construção</sub></td>
+              <td>Manutenção</td>
             </tr>
             <tr class="hide-row">
                   <td></td>
@@ -80,27 +81,32 @@
                   <td></td>
                   <td rowspan="<%= @construsolution.material_compositions.count + 1%>"> <%= @calcs[:u] %> </td>
                   <td></td>
-                  <td rowspan="<%= @construsolution.material_compositions.count + 1%>"><%= '%.2f' % @calcs[:cost_c].round(2) %> </td>
+                  <td></td>
                   
                 </tr>
 
               <% @construsolution.material_compositions.each do |m| %>
                 <tr>
                   <td> <%= m.description %> </td>
-                  <td class="value-field"> <%='%.3f' % 0 %> </td>
+                  <td class="value-field"> <%='%.3f' % m.calcWidth%> </td>
                   <td class="value-field"> <%='%.4f' % m[:lambda].round(4) %> </td>
-                  <td class="value-field"><%= '%.4f' % (0/m[:lambda]).round(4) %></td>
-                  <td class="value-field"><%= '%.2f' % 0.round(2) %> </td>
+                  <td class="value-field"><%= '%.4f' % m.calcR.round(4) %></td>
+                  <td class="value-field"><%= '%.2f' % m.calcWeight %> </td>
+                  <td class="value-field"><%= '%.2f' % m.maintenance_cost %> </td>
+                  <td class="value-field"><%= '%.2f' % m.construction_cost %> </td>
                   
 
                 </tr>
               <%end%>
 
             <tr>
-              <td colspan="10">Método(s) de LCA: CML 2 baseline 2000 versão 3.02 (para avaliar o Impacto ambiental) e Cumulative Energy Demand versão 1.09 (Para avaliar a energia)</td>
+              <td colspan="8">Método(s) de LCA: CML 2 baseline 2000 versão 3.02 (para avaliar o Impacto ambiental) e Cumulative Energy Demand versão 1.09 (Para avaliar a energia)</td>
+              <td><b style="float:right">Total:</b></td>
+              <td class="value-field" style="text-align: right; font-weight: bold"><%= @construsolution.costsC %></td>
+              <td class="value-field" style="text-align: right; font-weight: bold"><%= @construsolution.costsM %></td>
             </tr>
             <tr>
-              <td colspan="10">Bibliotecas do LCI: Ecoinvent system process</td>
+              <td colspan="11">Bibliotecas do LCI: Ecoinvent system process</td>
             </tr>
             
           </table>

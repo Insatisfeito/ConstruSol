@@ -37,7 +37,8 @@ var app = function() {
       var ep = $('[id^="ep"]');
       var enr = $('[id^="enr"]');
       var er = $('[id^="er"]');
-      var cost = $('[id^="cost"]');
+      var costC = $('[id^="costC"]');
+      var costM = $('[id^="costM"]');
       var u = $('[id^="u"]');
       var adps = {"max": 0, "min": 0, idMax: null, idMin: null} ;
       var gwps = {"max": 0, "min": 0, idMax: null, idMin: null} ;
@@ -47,7 +48,8 @@ var app = function() {
       var eps = {"max": 0, "min": 0, idMax: null, idMin: null} ;
       var enrs = {"max": 0, "min": 0, idMax: null, idMin: null} ;
       var ers = {"max": 0, "min": 0, idMax: null, idMin: null} ;
-      var costs = {"max": 0, "min": 0, idMax: null, idMin: null} ;
+      var costsC = {"max": 0, "min": 0, idMax: null, idMin: null} ;
+      var costsM = {"max": 0, "min": 0, idMax: null, idMin: null} ;
       var us = {"max": 0, "min": 0, idMax: null, idMin: null} ; 
       for (var i = 0; i < adp.length; i++) {
         var value = Number(adp[i].textContent)
@@ -250,29 +252,53 @@ var app = function() {
 
 
 
-      for (var i = 0; i < cost.length; i++) {
-        var value = Number(cost[i].textContent)
+      for (var i = 0; i < costC.length; i++) {
+        var value = Number(costC[i].textContent)
         if (i === 0) {
-          costs.max = value;
-          costs.min = value;
-          costs.idMax = cost[i].id;
-          costs.idMin = cost[i].id;
+          costsC.max = value;
+          costsC.min = value;
+          costsC.idMax = costC[i].id;
+          costsC.idMin = costC[i].id;
         }
-        if (costs.max < value){
-          console.log('max ' +costs.max + ' ' +value )
-          costs.max = value;
-          costs.idMax = cost[i].id;
+        if (costsC.max < value){
+          console.log('max ' +costsC.max + ' ' +value )
+          costsC.max = value;
+          costsC.idMax = costC[i].id;
         }
-        if (costs.min > value){
-          console.log('min ' +costs.min + ' ' +value )
-          costs.min = value;
-          costs.idMin = cost[i].id;
+        if (costsC.min > value){
+          console.log('min ' +costsC.min + ' ' +value )
+          costsC.min = value;
+          costsC.idMin = costC[i].id;
         }
       }
-      $('#'+costs.idMax).css("background-color", "red")
-      $('#'+costs.idMax).css("color", "white")
-      $('#'+costs.idMin).css("background-color", "green")
-      $('#'+costs.idMin).css("color", "white")
+      $('#'+costsC.idMax).css("background-color", "red")
+      $('#'+costsC.idMax).css("color", "white")
+      $('#'+costsC.idMin).css("background-color", "green")
+      $('#'+costsC.idMin).css("color", "white")
+
+      for (var i = 0; i < costM.length; i++) {
+        var value = Number(costM[i].textContent)
+        if (i === 0) {
+          costsM.max = value;
+          costsM.min = value;
+          costsM.idMax = costM[i].id;
+          costsM.idMin = costM[i].id;
+        }
+        if (costsM.max < value){
+          console.log('max ' +costsM.max + ' ' +value )
+          costsM.max = value;
+          costsM.idMax = costM[i].id;
+        }
+        if (costsM.min > value){
+          console.log('min ' +costsM.min + ' ' +value )
+          costsM.min = value;
+          costsM.idMin = costM[i].id;
+        }
+      }
+      $('#'+costsM.idMax).css("background-color", "red")
+      $('#'+costsM.idMax).css("color", "white")
+      $('#'+costsM.idMin).css("background-color", "green")
+      $('#'+costsM.idMin).css("color", "white")
 
       for (var i = 0; i < u.length; i++) {
         var value = Number(u[i].textContent)

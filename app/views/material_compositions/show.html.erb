@@ -48,14 +48,14 @@
             </tr>
             <tr> 
               <td rowspan="3">Cradle-to-gate</td>
-              <td class="value-field"><%= "%.2E" % @material_composition.adp %> </td>
-              <td class="value-field"><%= "%.2E" % @material_composition.gwp %></td>
-              <td class="value-field"><%= "%.2E" % @material_composition.odp %></td>
-              <td class="value-field"><%= "%.2E" % @material_composition.ap %></td>
-              <td class="value-field"><%= "%.2E" % @material_composition.pocp %></td>
-              <td class="value-field"><%= "%.2E" % @material_composition.ep %></td>
-              <td class="value-field"><%= "%.2E" % @material_composition.er %></td>
-              <td class="value-field"><%= "%.2E" % @material_composition.enr %></td>
+              <td class="value-field"><%= "%.2E" % @impacts[:adp] %> </td>
+              <td class="value-field"><%= "%.2E" % @impacts[:gwp] %></td>
+              <td class="value-field"><%= "%.2E" % @impacts[:odp] %></td>
+              <td class="value-field"><%= "%.2E" % @impacts[:ap] %></td>
+              <td class="value-field"><%= "%.2E" % @impacts[:pocp] %></td>
+              <td class="value-field"><%= "%.2E" % @impacts[:ep] %></td>
+              <td class="value-field"><%= "%.2E" % @impacts[:er] %></td>
+              <td class="value-field"><%= "%.2E" % @impacts[:enr] %></td>
             </tr>
             <tr class="header">
               <td colspan="2">Espessura <div class="measure">(m)</div></td>
@@ -66,8 +66,8 @@
             </tr>
              <tr> 
               
-              <td colspan="2" class="value-field"><%= @material_composition.width_calc %> </td>
-              <td colspan="2" class="value-field"><%= @material_composition.weight_calc %></td>
+              <td colspan="2" class="value-field"><%= @material_composition.calcWidth %> </td>
+              <td colspan="2" class="value-field"><%= @material_composition.calcWeight %></td>
               <td colspan="2" class="value-field"><%= @material_composition[:lambda] %></td>
               <td class="value-field"><%= @material_composition.construction_cost %></td>
               <td class="value-field"><%= @material_composition.maintenance_cost %></td>

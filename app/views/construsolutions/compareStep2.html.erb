@@ -25,7 +25,7 @@
               <td> Ref: <%= constr.ref %> </td>
             </tr>
             <tr>
-               <td rowspan="<%= constr.materials.count + 6 %>"> Image </td>
+               <td rowspan="<%= constr.material_compositions.count + 6 %>"> Image </td>
               <td class="header"  rowspan="2"> Fase de ciclo de vida </td>
               <td class="header" colspan="6"> Categorias de impacto Ambiental LCA</td>
               <td class="header" colspan="2"> Energia incorporada </td>
@@ -42,36 +42,36 @@
             </tr>
             <tr> 
               <td>Cradle-to-gate</td>
-              <td class="value-field"><%= "%.2E" % constr.adp %> </td>
-              <td class="value-field"><%= "%.2E" % constr.gwp %></td>
-              <td class="value-field"><%= "%.2E" % constr.odp %></td>
-              <td class="value-field"><%= "%.2E" % constr.ap %></td>
-              <td class="value-field"><%= "%.2E" % constr.popc %></td>
-              <td class="value-field"><%= "%.2E" % constr.ep %></td>
-              <td class="value-field"><%= "%.2E" % constr.enr %></td>
-              <td class="value-field"><%= "%.2E" % constr.er %></td>
+              <td class="value-field"><%= "%.2E" % constr.calcImpacts[:adp] %> </td>
+              <td class="value-field"><%= "%.2E" % constr.calcImpacts[:gwp] %></td>
+              <td class="value-field"><%= "%.2E" % constr.calcImpacts[:odp] %></td>
+              <td class="value-field"><%= "%.2E" % constr.calcImpacts[:ap] %></td>
+              <td class="value-field"><%= "%.2E" % constr.calcImpacts[:pocp] %></td>
+              <td class="value-field"><%= "%.2E" % constr.calcImpacts[:ep] %></td>
+              <td class="value-field"><%= "%.2E" % constr.calcImpacts[:enr] %></td>
+              <td class="value-field"><%= "%.2E" % constr.calcImpacts[:er] %></td>
             </tr>
             <tr>
               <td class="header"  rowspan="2"> Materiais Considerados (Exterior - Interior) </td>
               <td class="header" colspan="2"> Quantidade por m<sub>2</sub> </td>
               <td class="header" colspan="2"> Tipo de transporte </td>
-              <td class="header" colspan="2"> Distância </td>
+              <td class="header" colspan="4"> Distância </td>
             </tr>
             <tr class="header"> 
               <td colspan="2">kg / m<sub>2</sub></td>
               <td class="header" colspan="2"> Selecione o transporte </td>
-              <td class="header" colspan="2"> Selecione a distância </td>
+              <td class="header" colspan="4"> Selecione a distância </td>
 
             </tr>
 
             <%= f.fields_for "#{constr.id}" do |ff| %>
-              <% constr.materials.each do |m| %>
+              <% constr.material_compositions.each do |m| %>
               <%= ff.fields_for "#{m.id}" do |fff| %>
                 <tr>
-                  <td> <%= m.name %> </td>
-                  <td colspan="2" class="value-field"><%= '%.2f' % m.weight.round(2) %> </td>
+                  <td> <%= m.description %> </td>
+                  <td colspan="2" class="value-field"><%= '%.2f' % m.calcWeight.round(2) %> </td>
                   <td colspan="2" class="value-field"> <%= fff.select "transport", Transport.all.collect {|x| [x.name, x.id]}, {}, {:multiple => false, :class => "chosen-select", :style=>"min-width:200px !important;max-width:400px !important"} %> </td>
-                  <td colspan="2" class="value-field"><%= fff.number_field("distance", in: 0..9999.0) %> </td>
+                  <td colspan="4" class="value-field"><%= fff.number_field("distance", in: 0..9999.0) %> </td>
                 </tr>
               <%end%><%end%>
             <%end%>

@@ -20,29 +20,7 @@ class MaterialCompositionsController < ApplicationController
   # GET /material_compositions/1.json
   def show
     @material_composition.type_name = ['Material', "Alvenaria: Parede Simples","Alvenaria: Parede Dupla" ][@material_composition.mtype]
-    @material_composition.weight_calc = 0
-    @material_composition.width_calc = 0
-    @material_composition.adp = 0
-    @material_composition.gwp = 0
-    @material_composition.odp = 0
-    @material_composition.ap = 0
-    @material_composition.pocp = 0
-    @material_composition.ep = 0
-    @material_composition.er = 0
-    @material_composition.enr = 0
-    @material_composition.material_joins.each do |base_mat|
-      @material_composition.weight_calc += base_mat.weight
-      @material_composition.width_calc += base_mat.width
-      @material_composition.adp += base_mat.weight * base_mat.base_material.adp
-      @material_composition.gwp += base_mat.weight * base_mat.base_material.gwp
-      @material_composition.odp += base_mat.weight * base_mat.base_material.odp
-      @material_composition.ap += base_mat.weight * base_mat.base_material.ap
-      @material_composition.pocp += base_mat.weight * base_mat.base_material.pocp
-      @material_composition.ep += base_mat.weight * base_mat.base_material.ep
-      @material_composition.er += base_mat.weight * base_mat.base_material.er
-      @material_composition.enr += base_mat.weight * base_mat.base_material.enr
-
-    end
+    @impacts = @material_composition.impacts
   end
 
   # GET /material_compositions/new
@@ -52,6 +30,14 @@ class MaterialCompositionsController < ApplicationController
 
   # GET /material_compositions/1/edit
   def edit
+  end
+
+  def calcWeight
+    @mat_weight = 0
+    @material_composition.base_material.each do |m|
+      @mat_weight += m.weight
+    end
+    @mat_weight
   end
 
   # POST /material_compositions
@@ -143,6 +129,6 @@ class MaterialCompositionsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def material_composition_params
       params.require(:material_composition).permit(:description, :mtype, :construction_cost, :maintenance_cost, :material_composition_add, :width, :weight, :lambda, :material_composition_add_1, :width_1, :weight_1,
-      :material_composition_add_2, :width_2, :weight_2, :width_0, :weight_0, :lambda_1, :lambda_0, :type_name, :weight_calc, :width_calc, :adp, :gwp, :odp, :ap, :pocp, :ep, :er, :enr)
+      :material_composition_add_2, :width_2, :weight_2, :width_0, :weight_0, :lambda_1, :lambda_0, :type_name, :weight_calc, :width_calc, :adp, :gwp, :odp, :ap, :pocp, :ep, :er, :enr, :impactsCalc)
     end
 end

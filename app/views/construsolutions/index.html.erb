@@ -65,14 +65,14 @@
                 <td><%= cons.ref %></td>
                 <td><%= link_to cons.name, cons %></td>
                 <td><%= cons.construtype == 0 ? "Não Ventilada" : "Ventilada" %></td>
-                <td><%= "%.2E" % cons.adp %></td>
-                <td><%= "%.2E" % cons.gwp %></td>
-                <td><%= "%.2E" % cons.odp %></td>
-                <td><%= "%.2E" % cons.ap %></td>
-                <td><%= "%.2E" % cons.popc %></td>
-                <td><%= "%.2E" % cons.ep %></td>
-                <td><%= "%.2E" % cons.enr %></td>
-                <td><%= "%.2E" % cons.er %></td>
+                <td><%= "%.2E" % cons.calcImpacts[:adp]%></td>
+                <td><%= "%.2E" % cons.calcImpacts[:gwp]%></td>
+                <td><%= "%.2E" % cons.calcImpacts[:odp]%></td>
+                <td><%= "%.2E" % cons.calcImpacts[:ap]%></td>
+                <td><%= "%.2E" % cons.calcImpacts[:pocp]%></td>
+                <td><%= "%.2E" % cons.calcImpacts[:ep]%></td>
+                <td><%= "%.2E" % cons.calcImpacts[:enr]%></td>
+                <td><%= "%.2E" % cons.calcImpacts[:er]%></td>
               </tr>
               <% end %>
             </tbody>
