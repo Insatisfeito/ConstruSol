@@ -7,10 +7,11 @@ class MaterialComposition < ApplicationRecord
 
   def calcWidth
     @mat_width = 0
+    puts self.description
     self.material_joins.each do |m|
       @mat_width += m[:width]
     end
-    @mat_width
+    @mat_width.round(8)
   end
 
   def calcWeight
@@ -34,7 +35,7 @@ class MaterialComposition < ApplicationRecord
   end
 
   def calcR
-    self.calcWeight / self.calcLambda
+    self.calcWidth / self.calcLambda
   end
 
   def impacts
@@ -61,5 +62,5 @@ class MaterialComposition < ApplicationRecord
     @calcs
   end
 
-  attr_accessor :adp, :gwp, :odp, :ap, :pocp, :impactsCalc, :ep, :er, :enr, :material_composition_add, :material_composition_add, :width, :weight, :lambda, :material_composition_add_1, :width_1, :weight_1, :width_0, :weight_0, :lambda_0, :type_name, :weight_calc, :width_calc, :lambda_1 , :material_composition_add_2, :width_2, :weight_2
+  attr_accessor :adp, :gwp, :odp, :ap, :pocp, :impactsCalc, :ep, :er, :enr, :material_composition_add_0, :material_composition_add, :material_composition_add, :width, :weight, :lambda, :material_composition_add_1, :width_1, :weight_1, :width_0, :weight_0, :lambda_0, :type_name, :weight_calc, :width_calc, :lambda_1 , :material_composition_add_2, :width_2, :weight_2
 end

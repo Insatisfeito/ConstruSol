@@ -16,7 +16,7 @@ class ConstrusolutionsController < InheritedResources::Base
       constr = Construsolution.find(constru_id)
       @results[constru_id] = Hash.new
       @results[constru_id][:constr] = constr
-      @results[constru_id][:impacts] = constr.calcImpacts
+      @results[constru_id][:impacts] = Hash.new
       @results[constru_id][:materials] = Hash.new
       if constr.construtype == 0
         @calcs[constru_id] = Hash.new
@@ -48,11 +48,19 @@ class ConstrusolutionsController < InheritedResources::Base
         end
         @calcs[constru_id][:u] = (1 / @calcs[constru_id][:uNoDiv]).round(4)
       end
+      @results[constru_id][:impacts][:adp] = 0
+      @results[constru_id][:impacts][:gwp] = 0
+      @results[constru_id][:impacts][:odp] = 0
+      @results[constru_id][:impacts][:ap] = 0
+      @results[constru_id][:impacts][:pocp] = 0
+      @results[constru_id][:impacts][:ep] = 0
+      @results[constru_id][:impacts][:er] = 0
+      @results[constru_id][:impacts][:enr] = 0
       constru_params.each do |mat_id, mat_params|
         mat = MaterialComposition.find(mat_id)
         trans = Transport.find(mat_params["transport"]) 
+        puts mat.calcWeight.to_s + ' -> ' + mat_params["distance"] + ' -> ' + trans.adp.to_s + ' == ' + (mat.calcWeight * mat_params["distance"].to_f * trans.adp).to_s
         @results[constru_id][:materials][mat_id] = { "mat" => mat, "transport" => trans, "distance" => mat_params["distance"].to_f}
-        @results[constru_id][:impacts] = constr.calcImpacts
         @results[constru_id][:impacts][:adp] += mat.calcWeight * mat_params["distance"].to_f * trans.adp
         @results[constru_id][:impacts][:gwp] += mat.calcWeight * mat_params["distance"].to_f * trans.gwp
         @results[constru_id][:impacts][:odp] += mat.calcWeight * mat_params["distance"].to_f * trans.odp

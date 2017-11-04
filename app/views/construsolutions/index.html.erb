@@ -64,7 +64,7 @@
               <tr>
                 <td><%= cons.ref %></td>
                 <td><%= link_to cons.name, cons %></td>
-                <td><%= cons.construtype == 0 ? "Não Ventilada" : "Ventilada" %></td>
+                <td><%= cons.construtype == 0 ? "Não Ventilado" : "Ventilado" %></td>
                 <td><%= "%.2E" % cons.calcImpacts[:adp]%></td>
                 <td><%= "%.2E" % cons.calcImpacts[:gwp]%></td>
                 <td><%= "%.2E" % cons.calcImpacts[:odp]%></td>

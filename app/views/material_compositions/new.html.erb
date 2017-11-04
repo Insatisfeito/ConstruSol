@@ -61,7 +61,7 @@
                           <div class="form-group">
                            <label class="col-sm-4 ">Escolher Material:</label>
                            <div class="col-sm-8">
-                              <%= f.select :material_composition_add, BaseMaterial.all.collect {|x| [x.description, x.id]}, {}, {:multiple => false, :class => "chosen-select", :style=>"min-width:200px !important;max-width:400px !important"} %>
+                              <%= f.select :material_composition_add_0, BaseMaterial.all.collect {|x| [x.description, x.id]}, {}, {:multiple => false, :class => "chosen-select", :style=>"min-width:200px !important;max-width:400px !important"} %>
                            </div>
                            </div>
                            <div class="form-group">
@@ -151,7 +151,7 @@
          </div>
       </div>
       <% end %>
-      <div>
+      <div style="display:none">
          <ul class="nav nav-tabs">
             <li class="active"><a href="#panel0" id="panel0link" data-toggle="tab" aria-expanded="true"></a>
             </li>

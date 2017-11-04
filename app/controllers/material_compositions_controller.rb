@@ -7,12 +7,6 @@ class MaterialCompositionsController < ApplicationController
     @material_compositions = MaterialComposition.all
     @material_compositions.each do |mat_comp|
       mat_comp.type_name = ['Material', "Alvenaria: Parede Simples","Alvenaria: Parede Dupla" ][mat_comp.mtype]
-      mat_comp.weight_calc = 0
-      mat_comp.width_calc = 0
-      mat_comp.material_joins.each do |base_mat|
-        mat_comp.weight_calc += base_mat.weight
-        mat_comp.width_calc += base_mat.width
-      end
     end
   end
 
@@ -58,7 +52,7 @@ class MaterialCompositionsController < ApplicationController
           @material_composition.save
           
         elsif (@rp[:mtype] == "1")
-          material = BaseMaterial.find(@rp[:material_composition_add])
+          material = BaseMaterial.find(@rp[:material_composition_add_0])
           mjt = @material_composition.material_joins.new(base_material: material)
           mjt.weight = @rp[:weight_0]
           mjt.width = @rp[:width_0]
@@ -129,6 +123,6 @@ class MaterialCompositionsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def material_composition_params
       params.require(:material_composition).permit(:description, :mtype, :construction_cost, :maintenance_cost, :material_composition_add, :width, :weight, :lambda, :material_composition_add_1, :width_1, :weight_1,
-      :material_composition_add_2, :width_2, :weight_2, :width_0, :weight_0, :lambda_1, :lambda_0, :type_name, :weight_calc, :width_calc, :adp, :gwp, :odp, :ap, :pocp, :ep, :er, :enr, :impactsCalc)
+      :material_composition_add_2, :width_2, :weight_2, :width_0, :weight_0, :lambda_1, :lambda_0, :type_name, :material_composition_add_0, :weight_calc, :width_calc, :adp, :gwp, :odp, :ap, :pocp, :ep, :er, :enr, :impactsCalc)
     end
 end
