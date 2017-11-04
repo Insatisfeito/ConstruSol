@@ -2,7 +2,7 @@ class MaterialComposition < ApplicationRecord
   has_many :material_joins
   has_many :base_materials, through: :material_joins
 
-  has_many :construsolutions
+  has_many :join_tables
   has_many :construsolutions, through: :join_tables
 
   def calcWidth
