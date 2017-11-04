@@ -40,16 +40,16 @@ var app = function() {
     var costM = $('[id^="costM"]');
     var u = $('[id^="u"]');
     var adps = { "max": 0, "min": 0, idMax: [], idMin: [] };
-    var gwps = { "max": 0, "min": 0, idMax: null, idMin: null };
-    var odps = { "max": 0, "min": 0, idMax: null, idMin: null };
-    var aps = { "max": 0, "min": 0, idMax: null, idMin: null };
-    var popcs = { "max": 0, "min": 0, idMax: null, idMin: null };
-    var eps = { "max": 0, "min": 0, idMax: null, idMin: null };
-    var enrs = { "max": 0, "min": 0, idMax: null, idMin: null };
-    var ers = { "max": 0, "min": 0, idMax: null, idMin: null };
-    var costsC = { "max": 0, "min": 0, idMax: null, idMin: null };
-    var costsM = { "max": 0, "min": 0, idMax: null, idMin: null };
-    var us = { "max": 0, "min": 0, idMax: null, idMin: null };
+    var gwps = { "max": 0, "min": 0, idMax: [], idMin: [] };
+    var odps = { "max": 0, "min": 0, idMax: [], idMin: [] };
+    var aps = { "max": 0, "min": 0, idMax: [], idMin: [] };
+    var popcs = { "max": 0, "min": 0, idMax: [], idMin: [] };
+    var eps = { "max": 0, "min": 0, idMax: [], idMin: [] };
+    var enrs = { "max": 0, "min": 0, idMax: [], idMin: [] };
+    var ers = { "max": 0, "min": 0, idMax: [], idMin: [] };
+    var costsC = { "max": 0, "min": 0, idMax: [], idMin: [] };
+    var costsM = { "max": 0, "min": 0, idMax: [], idMin: [] };
+    var us = { "max": 0, "min": 0, idMax: [], idMin: [] };
     for (var i = 0; i < adp.length; i++) {
       var value = Number(adp[i].textContent)
       if (i === 0) {
