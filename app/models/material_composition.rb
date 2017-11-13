@@ -24,18 +24,24 @@ class MaterialComposition < ApplicationRecord
 
   def calcLambda
     @mat_lambda = 0
-    if self.mtype == 0
-      self.base_materials.each do |m|
-        @mat_lambda += m[:lambda]
-      end
-    else
-      @mat_lambda = self[:lambda]
+    self.base_materials.each do |m|
+      @mat_lambda += m[:lambda]
     end
+
     @mat_lambda
   end
 
   def calcR
-    self.calcWidth / self.calcLambda
+    @mat_R = 0
+    if self.mtype == 0
+      self.base_materials.each do |m|
+        @mat_R += self.calcWidth / self.calcLambda
+      end
+    else
+      @mat_R = self[:lambda]
+    end
+    @mat_R
+    
   end
 
   def impacts

@@ -49,8 +49,9 @@
                 <th width="30%">Descrição</th>
                 <th>Tipo</th>
                 <th>Espessura <div class="measure">(m)</div></th>
+                <th>λ </th>
                 <th>Peso <div class="measure">(Kg)</div></th>
-                <th>Resistência Térmica <div class="measure">(λ)</div></th>
+                <th>Resistência Térmica</th>
                 <th>Custo de construção <div class="measure">(€)</div></th>
                 <th>Custo de Manutenção <div class="measure">(€)</div></th>
               </tr>
@@ -61,8 +62,9 @@
                 <td><%= link_to matcomp.description, matcomp %></td>
                 <td><%= matcomp.type_name %></td>
                 <td><%= matcomp.calcWidth %></td>
-                <td><%= matcomp.weight_calc %></td>
-                <td><%= matcomp[:lambda] %></td>
+                <td><%= matcomp.calcLambda %></td>
+                <td><%= matcomp.calcWeight %></td>
+                <td><%= matcomp.calcR %></td>
                 <td><%= matcomp.construction_cost %></td>
                 <td><%= matcomp.maintenance_cost %></td>
               </tr>

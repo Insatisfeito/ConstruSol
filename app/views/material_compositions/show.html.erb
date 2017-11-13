@@ -24,7 +24,7 @@
           <%= link_to 'Voltar', material_compositions_path, :class=>"btn btn-info" %>
           <table class="table table-bordered">
             <tr>
-              <td colspan="5"> <%= @material_composition.type_name %> - <b><%= @material_composition.description %></b> </td>
+              <td colspan="6"> <%= @material_composition.type_name %> - <b><%= @material_composition.description %></b> </td>
               <td colspan="4"> |
                 <% @material_composition.material_joins.each do |mh| %>
                   <%= mh.base_material.description%> | 
@@ -32,7 +32,7 @@
               </td>
             </tr>
             <tr>
-              <td class="header"  rowspan="2"> Fase de ciclo de vida </td>
+              <td class="header"  rowspan="2" colspan="2"> Fase de ciclo de vida </td>
               <td class="header" colspan="6"> Categorias de impacto Ambiental LCA</td>
               <td class="header" colspan="2"> Energia incorporada </td>
             </tr>
@@ -47,7 +47,7 @@
               <td>ER <div class="measure">(MJ eq)</div></td>
             </tr>
             <tr> 
-              <td rowspan="3">Cradle-to-gate</td>
+              <td rowspan="1" colspan="2">Cradle-to-gate</td>
               <td class="value-field"><%= "%.2E" % @impacts[:adp] %> </td>
               <td class="value-field"><%= "%.2E" % @impacts[:gwp] %></td>
               <td class="value-field"><%= "%.2E" % @impacts[:odp] %></td>
@@ -59,16 +59,18 @@
             </tr>
             <tr class="header">
               <td colspan="2">Espessura <div class="measure">(m)</div></td>
+              <td colspan="2">λ <div class="measure">(W/m.ºC)</div></td>
               <td colspan="2">Peso <div class="measure">(kg)</div></td>
-              <td colspan="2">Resistência Térmica <div class="measure">(λ)</div></td>
+              <td colspan="2">Resistência Térmica </td>
               <td>Custo de construção <div class="measure">(€)</div></td>
               <td>Custo de Manutenção <div class="measure">(€)</div></td>
             </tr>
              <tr> 
               
-              <td colspan="2" class="value-field"><%= @material_composition.calcWidth %> </td>
-              <td colspan="2" class="value-field"><%= @material_composition.calcWeight %></td>
-              <td colspan="2" class="value-field"><%= @material_composition[:lambda] %></td>
+              <td colspan="2" class="value-field"><%= @material_composition.calcWidth.round(4) %> </td>
+              <td colspan="2" class="value-field"><%= @material_composition.calcLambda.round(4) %></td>
+              <td colspan="2" class="value-field"><%= @material_composition.calcWeight.round(4) %></td>
+              <td colspan="2" class="value-field"><%= @material_composition.calcR.round(4) %></td>
               <td class="value-field"><%= @material_composition.construction_cost %></td>
               <td class="value-field"><%= @material_composition.maintenance_cost %></td>
             </tr>

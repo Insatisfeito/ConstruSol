@@ -47,8 +47,8 @@ class MaterialCompositionsController < ApplicationController
           mjt = @material_composition.material_joins.new(base_material: material)
           mjt[:weight] = @rp[:weight]
           mjt[:width] = @rp[:width]
-          @material_composition[:lambda] = material.lambda
           mjt.save
+          @material_composition[:lambda] = @material_composition.calcR
           @material_composition.save
           
         elsif (@rp[:mtype] == "1")
