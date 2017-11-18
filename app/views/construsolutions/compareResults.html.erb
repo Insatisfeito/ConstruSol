@@ -18,7 +18,7 @@
              <table class="table table-bordered">
             <tr>
               <td> Solução Construtiva </td>
-              <td colspan="8"> <%= constr_params[:constr].construtype == 0 ? "Parede não ventilada" : "Parede ventilada" %> : <%= constr_params[:constr].name %> </td>
+              <td colspan="8"> <%= constr_params[:constr].construtype == 0 ? "Elemento não ventilado" : "Elemento ventilado" %> : <%= constr_params[:constr].name %> </td>
               <td colspan="3"> Ref: <%= constr_params[:constr].ref %> </td>
             </tr>
             <tr>
@@ -71,7 +71,7 @@
              <table class="table table-bordered">
             <tr>
               <td> Solução Construtiva </td>
-              <td colspan="8"> <%= constr_params[:constr].construtype == 0 ? "Parede não ventilada" : "Parede ventilada" %> : <%= constr_params[:constr].name %> </td>
+              <td colspan="8"> <%= constr_params[:constr].construtype == 0 ? "Elemento não ventilado" : "Elemento ventilado" %> : <%= constr_params[:constr].name %> </td>
               <td> Ref: <%= constr_params[:constr].ref %> </td>
             </tr>
             <tr>
@@ -124,7 +124,7 @@
               <td class="value-field"><%= "%.2E" % (constr_params[:impacts][:er] + constr_params[:constr].calcImpacts[:er]) %></td>
             </tr>
             <tr>
-              <td class="header"  rowspan="2"> Materiais Considerados (Exterior - Interior) </td>
+              <td class="header"  rowspan="2"> Materiais Considerados </td>
               <td class="header" colspan="2"> Quantidade por m<sub>2</sub> </td>
               <td class="header" colspan="1"> Custo Construção</td>
               <td class="header" colspan="2"> Custo Manutenção</td>

@@ -25,7 +25,7 @@
           <table class="table table-bordered">
             <tr>
               <td> Solução Construtiva </td>
-              <td colspan="8"> <%= @construsolution.construtype == 0 ? "Parede não ventilada" : "Parede ventilada" %> : <%= @construsolution.name %> </td>
+              <td colspan="8"> <%= @construsolution.construtype == 0 ? "Elemento não ventilado" : "Elemento ventilado" %> : <%= @construsolution.name %> </td>
               <td colspan="2"> Ref: <%= @construsolution.ref %> </td>
             </tr>
             <tr>
@@ -56,7 +56,7 @@
               <td class="value-field" colspan="2"><%= "%.2E" % @calcs[:impacts][:er] %></td>
             </tr>
             <tr>
-              <td class="header"  rowspan="2"> Materiais Considerados (Exterior - Interior) </td>
+              <td class="header"  rowspan="2"> Materiais Considerados </td>
               <td class="header" colspan="6"> Propriedades Térmicas</td>
               <td class="header"> Quantidade por m<sub>2</sub> </td>
               <td class="header" colspan="2"> Custos € / m<sub>2</sub> </td>
